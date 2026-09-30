@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Panal Theme - Mobile & Creator Optimized */
+    --background: 40 20% 98%;
+    --foreground: 220 20% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+    
+    /* Primary: Honey Amber & Golden Glow */
+    --primary: 43 96% 48%;
+    --primary-foreground: 20 15% 5%;
+    --primary-hover: 43 96% 42%;
+    
+    /* Secondary: Deep Amber & Warm Honeycomb */
+    --secondary: 35 92% 46%;
+    --secondary-foreground: 40 20% 98%;
+    --secondary-hover: 35 92% 40%;
+    
+    /* Accent: Warm Nectar & Coral Pollen */
+    --accent: 25 95% 53%;
+    --accent-foreground: 40 20% 98%;
+    
+    /* Neutral Grays & Honey Warmth */
+    --muted: 40 15% 94%;
+    --muted-foreground: 220 10% 40%;
+    --border: 40 15% 88%;
+    --input: 40 15% 88%;
+    --ring: 43 96% 48%;
+    
+    /* Status Colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 40 20% 98%;
+    --success: 142 69% 50%;
+    --success-foreground: 40 20% 98%;
+    --warning: 43 96% 48%;
+    --warning-foreground: 20 15% 5%;
+    
+    /* Panal Specific */
+    --artist-card: 40 18% 97%;
+    --track-hover: 43 96% 94%;
+    --playlist-bg: 35 92% 95%;
+    
+    --radius: 0.85rem;
+  }
+ 
+  .dark {
+    /* Dark Mode - Panal Obsidian Honeycomb */
+    --background: 222 25% 7%;
+    --foreground: 40 20% 94%;
+    --card: 222 22% 10%;
+    --card-foreground: 40 20% 94%;
+    --popover: 222 22% 10%;
+    --popover-foreground: 40 20% 94%;
+    
+    /* Primary maintains brilliant visibility in dark */
+    --primary: 45 96% 54%;
+    --primary-foreground: 222 30% 6%;
+    --primary-hover: 45 96% 62%;
+    
+    /* Secondary adjusted for dark mode */
+    --secondary: 36 92% 54%;
+    --secondary-foreground: 222 30% 6%;
+    --secondary-hover: 36 92% 62%;
+    
+    /* Accent in dark mode */
+    --accent: 25 95% 58%;
+    --accent-foreground: 222 30% 6%;
+    
+    /* Dark neutrals */
+    --muted: 222 18% 15%;
+    --muted-foreground: 40 10% 65%;
+    --border: 222 18% 16%;
+    --input: 222 18% 18%;
+    --ring: 45 96% 54%;
+    
+    /* Dark status colors */
+    --destructive: 0 72% 45%;
+    --destructive-foreground: 40 20% 98%;
+    --success: 142 69% 50%;
+    --success-foreground: 222 30% 6%;
+    --warning: 45 96% 54%;
+    --warning-foreground: 222 30% 6%;
+    
+    /* Dark panal specific */
+    --artist-card: 222 22% 11%;
+    --track-hover: 45 96% 12%;
+    --playlist-bg: 36 92% 12%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Mobile-first typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight;
+  }
+  
+  /* Mobile touch targets */
+  button, a[role="button"], [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+@layer components {
+  /* Music Platform Components */
+  .track-card {
+    @apply bg-artist-card border border-border rounded-xl p-4 transition-all duration-200 hover:bg-track-hover hover:shadow-md;
+  }
+  
+  .artist-card {
+    @apply bg-artist-card border border-border rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .mobile-nav-item {
+    @apply flex flex-col items-center gap-1 py-2 px-3 rounded-lg transition-colors duration-200 min-h-[60px] justify-center;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+  
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50 rounded-xl;
+  }
+}

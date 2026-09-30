@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.handle_new_user(), public.create_match_on_mutual_like(), public.update_updated_at_column() FROM PUBLIC, anon, authenticated;
