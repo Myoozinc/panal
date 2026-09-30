@@ -10,7 +10,7 @@ import EmptyState from "@/components/EmptyState";
 import { ListSkeleton } from "@/components/Skeletons";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { AppNotification } from "@/types/independent";
+import type { AppNotification } from "@/types/panal";
 
 import { OFFICIAL_APP_USER_ID } from "@/lib/constants";
 
@@ -28,7 +28,7 @@ const iconFor = (n: AppNotification) => {
 
 const labelFor = (n: AppNotification) => {
   if (n.actor_id === OFFICIAL_APP_USER_ID) {
-    return "Mensaje oficial de Independent";
+    return "Mensaje oficial de Panal 🐝";
   }
   switch (n.type) {
     case "like": return "Alguien te dio like";

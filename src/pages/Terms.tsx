@@ -50,10 +50,10 @@ const Terms = () => {
         {/* Intro callout */}
         <div className="p-5 rounded-2xl bg-card border border-border/60 text-foreground space-y-2">
           <p className="font-semibold text-base">
-            Bienvenido/a a Independent. Por favor, lee atentamente estas Condiciones antes de utilizar nuestra plataforma.
+            Bienvenido/a a Panal. Por favor, lee atentamente estas Condiciones antes de utilizar nuestra plataforma.
           </p>
           <p className="text-xs sm:text-sm text-muted-foreground">
-            Al registrarte, acceder o utilizar el sitio web, las aplicaciones web o móviles de Independent (en adelante, "el Servicio" o "la Plataforma"), aceptas quedar legalmente vinculado/a por estas Condiciones de Uso. Si no estás de acuerdo con alguno de los términos, debes abstenerte de usar la Plataforma.
+            Al registrarte, acceder o utilizar el sitio web, las aplicaciones web o móviles de Panal (en adelante, "el Servicio" o "la Plataforma"), aceptas quedar legalmente vinculado/a por estas Condiciones de Uso. Si no estás de acuerdo con alguno de los términos, debes abstenerte de usar la Plataforma.
           </p>
         </div>
 
@@ -63,13 +63,13 @@ const Terms = () => {
             1. Naturaleza del Servicio e Intermediación Técnica
           </h2>
           <p>
-            <strong>Independent</strong> es una plataforma de software y red social concebida para conectar artistas, músicos, productores, vocalistas, creadores y profesionales del sector cultural con fines de comunicación, descubrimiento mutuo (*matchmaking*), intercambio de ideas y facilitación de colaboraciones.
+            <strong>Panal</strong> es una plataforma de software y red social concebida para conectar artistas, músicos, productores, vocalistas, creadores y profesionales del sector cultural con fines de comunicación, descubrimiento mutuo (*matchmaking*), intercambio de ideas y facilitación de colaboraciones.
           </p>
           <p>
-            <strong>Independent NO es:</strong> una agencia de representación artística (*talent agency*), ni un sello discográfico (*record label*), ni una sociedad de gestión colectiva de derechos de autor, ni una entidad financiera, ni un bufete de abogados, ni un árbitro vinculante. 
+            <strong>Panal NO es:</strong> una agencia de representación artística (*talent agency*), ni un sello discográfico (*record label*), ni una sociedad de gestión colectiva de derechos de autor, ni una entidad financiera, ni un bufete de abogados, ni un árbitro vinculante. 
           </p>
           <p>
-            Cualquier colaboración, proyecto conjunto, acuerdo comercial, cesión de derechos, división de regalías (*split sheets*) o contrato pactado entre los usuarios de la plataforma se realiza bajo su <strong>exclusiva cuenta y riesgo</strong>. Independent no es parte de dichos acuerdos ni garantiza su cumplimiento por ninguna de las partes.
+            Cualquier colaboración, proyecto conjunto, acuerdo comercial, cesión de derechos, división de regalías (*split sheets*) o contrato pactado entre los usuarios de la plataforma se realiza bajo su <strong>exclusiva cuenta y riesgo</strong>. Panal no es parte de dichos acuerdos ni garantiza su cumplimiento por ninguna de las partes.
           </p>
         </section>
 
@@ -86,7 +86,7 @@ const Terms = () => {
               EN LA MÁXIMA MEDIDA PERMITIDA POR LA LEY APLICABLE EN CUALQUIER JURISDICCIÓN, EL SERVICIO SE OFRECE ESTRICTAMENTE <strong>"TAL CUAL" ("AS IS")</strong> Y <strong>"SEGÚN DISPONIBILIDAD" ("AS AVAILABLE")</strong>.
             </p>
             <p>
-              LOS DESARROLLADORES, PROPIETARIOS, OPERADORES, AFILIADOS Y PROVEEDORES DE INDEPENDENT DESCONOCEN Y RECHAZAN EXPRESAMENTE TODA GARANTÍA, CONDICIÓN O DECLARACIÓN DE CUALQUIER TIPO, SEAN EXPRESAS, IMPLÍCITAS, LEGALES O DE OTRO TIPO, INCLUYENDO, SIN LIMITACIÓN:
+              LOS DESARROLLADORES, PROPIETARIOS, OPERADORES, AFILIADOS Y PROVEEDORES DE PANAL DESCONOCEN Y RECHAZAN EXPRESAMENTE TODA GARANTÍA, CONDICIÓN O DECLARACIÓN DE CUALQUIER TIPO, SEAN EXPRESAS, IMPLÍCITAS, LEGALES O DE OTRO TIPO, INCLUYENDO, SIN LIMITACIÓN:
             </p>
             <ul className="list-disc list-inside space-y-1 pl-2">
               <li>Garantías implícitas de comerciabilidad, idoneidad para un propósito particular y no infracción de derechos de terceros.</li>
@@ -120,7 +120,7 @@ const Terms = () => {
             </li>
           </ul>
           <p className="p-3 bg-muted/30 rounded-xl text-xs sm:text-sm border border-border/30">
-            <strong>Límite monetario máximo:</strong> Si a pesar de lo anterior una autoridad judicial competente determina alguna responsabilidad legal de los operadores de Independent, la responsabilidad económica total acumulada ante ti por todos los reclamos no superará en ningún caso el monto mayor entre: (a) el monto total que hayas pagado a Independent en los doce (12) meses anteriores al hecho, o (b) la suma de cincuenta dólares estadounidenses ($50.00 USD).
+            <strong>Límite monetario máximo:</strong> Si a pesar de lo anterior una autoridad judicial competente determina alguna responsabilidad legal de los operadores de Panal, la responsabilidad económica total acumulada ante ti por todos los reclamos no superará en ningún caso el monto mayor entre: (a) el monto total que hayas pagado a Panal en los doce (12) meses anteriores al hecho, o (b) la suma de cincuenta dólares estadounidenses ($50.00 USD).
           </p>
         </section>
 
@@ -130,7 +130,7 @@ const Terms = () => {
             4. Indemnización y Obligación de Mantener Indemne
           </h2>
           <p>
-            Aceptas defender, indemnizar y mantener completamente indemne a <strong>Independent</strong>, a su equipo fundador, programadores, empresas afiliadas, sucesores y contratistas frente a cualquier reclamo, demanda, daño, obligación, pérdida, responsabilidad, costo, multa o gasto (incluyendo honorarios razonables de abogados) que surjan de o se relacionen con:
+            Aceptas defender, indemnizar y mantener completamente indemne a <strong>Panal</strong>, a su equipo fundador, programadores, empresas afiliadas, sucesores y contratistas frente a cualquier reclamo, demanda, daño, obligación, pérdida, responsabilidad, costo, multa o gasto (incluyendo honorarios razonables de abogados) que surjan de o se relacionen con:
           </p>
           <ol className="list-decimal list-inside space-y-1.5 pl-2">
             <li>Tu uso, uso indebido o imposibilidad de uso de la Plataforma.</li>
@@ -147,16 +147,16 @@ const Terms = () => {
             5. Propiedad Intelectual y Política DMCA / Derechos de Autor
           </h2>
           <p>
-            <strong>Tus derechos:</strong> Conservas en todo momento la titularidad y derechos de propiedad intelectual sobre el contenido original que subas a Independent (canciones, maquetas, letras, pistas de audio, logotipos e imágenes).
+            <strong>Tus derechos:</strong> Conservas en todo momento la titularidad y derechos de propiedad intelectual sobre el contenido original que subas a Panal (canciones, maquetas, letras, pistas de audio, logotipos e imágenes).
           </p>
           <p>
             <strong>Garantía del usuario:</strong> Al subir o vincular material (mediante Spotify, YouTube, SoundCloud o subida directa), declaras y garantizas que eres el autor legítimo o cuentas con las licencias, consentimientos y autorizaciones por escrito de todos los titulares de derechos para publicar dicho material. Queda estrictamente prohibido subir material protegido sin autorización previa.
           </p>
           <p>
-            <strong>Licencia limitada para operar el servicio:</strong> Al publicar contenido, otorgas a Independent una licencia mundial, no exclusiva, gratuita y libre de regalías con el único propósito técnico de alojar, procesar, mostrar y reproducir dicho contenido dentro de la plataforma para prestar el servicio solicitado.
+            <strong>Licencia limitada para operar el servicio:</strong> Al publicar contenido, otorgas a Panal una licencia mundial, no exclusiva, gratuita y libre de regalías con el único propósito técnico de alojar, procesar, mostrar y reproducir dicho contenido dentro de la plataforma para prestar el servicio solicitado.
           </p>
           <p>
-            <strong>Notificación de infracción (DMCA / Takedown):</strong> Si consideras que algún contenido en Independent vulnera tus derechos de propiedad intelectual, puedes remitir una notificación a nuestro equipo legal indicando los datos de la obra y el enlace infractor a través de nuestro canal de soporte. Independent se reserva el derecho inalienable de suspender o eliminar de inmediato cualquier contenido reportado y cancelar las cuentas de infractores reincidentes sin previo aviso.
+            <strong>Notificación de infracción (DMCA / Takedown):</strong> Si consideras que algún contenido en Panal vulnera tus derechos de propiedad intelectual, puedes remitir una notificación a nuestro equipo legal indicando los datos de la obra y el enlace infractor a través de nuestro canal de soporte. Panal se reserva el derecho inalienable de suspender o eliminar de inmediato cualquier contenido reportado y cancelar las cuentas de infractores reincidentes sin previo aviso.
           </p>
         </section>
 
@@ -166,13 +166,13 @@ const Terms = () => {
             6. Herramientas de Inteligencia Artificial (Collab AI)
           </h2>
           <p>
-            Independent incluye funciones asistidas por modelos de lenguaje e Inteligencia Artificial (como el generador de acuerdos de colaboración y asistencia en chat).
+            Panal incluye funciones asistidas por modelos de lenguaje e Inteligencia Artificial (como el generador de acuerdos de colaboración y asistencia en chat).
           </p>
           <ul className="list-disc list-inside space-y-1 pl-2">
             <li>Las plantillas, cláusulas y textos sugeridos por la IA son <strong>meramente referenciales y formativos</strong>.</li>
             <li>No constituyen asesoramiento legal, notarial ni pericial.</li>
             <li>Es responsabilidad exclusiva de cada usuario someter cualquier acuerdo formal a la revisión de un abogado colegiado en su país.</li>
-            <li>Independent no asume responsabilidad alguna por la validez jurídica, exigibilidad o consecuencias económicas de los borradores generados por la IA.</li>
+            <li>Panal no asume responsabilidad alguna por la validez jurídica, exigibilidad o consecuencias económicas de los borradores generados por la IA.</li>
           </ul>
         </section>
 
@@ -182,7 +182,7 @@ const Terms = () => {
             7. Renuncia a Demandas Colectivas y Resolución de Conflictos
           </h2>
           <p>
-            En la medida que lo permita el marco legal aplicable, aceptas que cualquier reclamo o controversia contra Independent se resolverá de manera individual, <strong>renunciando expresamente a iniciar, unirte o participar en demandas colectivas (*class actions*)</strong>, acciones de clase, acciones representativas o procedimientos ante jurados populares contra la plataforma o sus desarrolladores.
+            En la medida que lo permita el marco legal aplicable, aceptas que cualquier reclamo o controversia contra Panal se resolverá de manera individual, <strong>renunciando expresamente a iniciar, unirte o participar en demandas colectivas (*class actions*)</strong>, acciones de clase, acciones representativas o procedimientos ante jurados populares contra la plataforma o sus desarrolladores.
           </p>
         </section>
 
@@ -202,7 +202,7 @@ const Terms = () => {
             9. Contacto Legal
           </h2>
           <p>
-            Para consultas, notificaciones legales o reclamos sobre estas Condiciones, puedes comunicarte con nuestro equipo oficial a través de la sección de soporte de la plataforma o escribiendo a: <strong>soporte@independent.app</strong>.
+            Para consultas, notificaciones legales o reclamos sobre estas Condiciones, puedes comunicarte con nuestro equipo oficial a través de la sección de soporte de la plataforma o escribiendo a: <strong>soporte@panal.app</strong>.
           </p>
         </section>
 
@@ -210,7 +210,7 @@ const Terms = () => {
 
       {/* Footer */}
       <footer className="border-t border-border/40 py-8 text-center text-xs text-muted-foreground">
-        <p>© {new Date().getFullYear()} Independent. Todos los derechos reservados.</p>
+        <p>© {new Date().getFullYear()} Panal. Todos los derechos reservados.</p>
         <div className="flex justify-center gap-4 mt-2">
           <Link to="/terms" className="hover:text-foreground underline">Condiciones de Uso</Link>
           <Link to="/privacy" className="hover:text-foreground underline">Política de Privacidad</Link>

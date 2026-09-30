@@ -25,13 +25,13 @@ BEGIN
       '00000000-0000-0000-0000-000000000001'::uuid,
       'authenticated',
       'authenticated',
-      'soporte@independent.app',
+      'soporte@panal.app',
       '',
       now(),
       now(),
       now(),
       '{"provider":"email","providers":["email"]}'::jsonb,
-      '{"display_name":"Equipo Independent","username":"independent"}'::jsonb,
+      '{"display_name":"Equipo Panal","username":"panal"}'::jsonb,
       false
     );
   END IF;
@@ -50,19 +50,19 @@ INSERT INTO public.profiles (
 )
 VALUES (
   '00000000-0000-0000-0000-000000000001'::uuid,
-  'Equipo Independent',
-  'independent',
-  '/independent-logo-v2.png',
-  'Cuenta oficial del equipo de Independent. Canal exclusivo de soporte, orientación y avisos oficiales.',
+  'Equipo Panal',
+  'panal',
+  '/logo.png',
+  'Cuenta oficial del equipo de Panal. Canal exclusivo de soporte, orientación y avisos oficiales.',
   'other',
   true,
   true
 )
 ON CONFLICT (id) DO UPDATE SET
-  display_name = 'Equipo Independent',
-  username = 'independent',
-  avatar_url = '/independent-logo-v2.png',
-  bio = 'Cuenta oficial del equipo de Independent. Canal exclusivo de soporte, orientación y avisos oficiales.',
+  display_name = 'Equipo Panal',
+  username = 'panal',
+  avatar_url = '/logo.png',
+  bio = 'Cuenta oficial del equipo de Panal. Canal exclusivo de soporte, orientación y avisos oficiales.',
   is_verified = true,
   onboarding_completed = true;
 
@@ -247,7 +247,7 @@ GRANT EXECUTE ON FUNCTION public.start_official_support_chat(uuid) TO authentica
 
 
 -- ====================================================================
--- 6. Send message on behalf of Official Support ("Equipo Independent")
+-- 6. Send message on behalf of Official Support ("Equipo Panal")
 -- ====================================================================
 CREATE OR REPLACE FUNCTION public.send_official_support_message(target_user_id uuid, p_content text)
 RETURNS uuid
@@ -353,7 +353,7 @@ BEGIN
       UPDATE public.conversations SET last_message_at = now() WHERE id = v_conv_id;
     END IF;
 
-    -- Insert real chat message in this user's Independent chat
+    -- Insert real chat message in this user's Panal chat
     IF v_conv_id IS NOT NULL THEN
       INSERT INTO public.messages (conversation_id, sender_id, content)
       VALUES (v_conv_id, v_system_id, v_content);

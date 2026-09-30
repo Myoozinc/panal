@@ -1,9 +1,9 @@
 import { supabase } from "@/integrations/supabase/client";
 import { OFFICIAL_APP_USER_ID } from "@/lib/constants";
-import type { Message, Conversation } from "@/types/independent";
+import type { Message, Conversation } from "@/types/panal";
 
 /**
- * Gets or creates the official conversation between Independent (the app) and a user.
+ * Gets or creates the official conversation between Panal (the app) and a user.
  */
 export async function getOrCreateAppConversation(userId: string): Promise<string | null> {
   if (!userId || userId === OFFICIAL_APP_USER_ID) return null;
@@ -121,7 +121,7 @@ export async function broadcastUpdateToAllUsers(
 
     let delivered = 0;
 
-    // Process each user to deliver the message into their Independent chat
+    // Process each user to deliver the message into their Panal chat
     await Promise.allSettled(
       profiles.map(async (p) => {
         try {

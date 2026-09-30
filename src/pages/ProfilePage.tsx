@@ -4,7 +4,7 @@ import { Loader2, MapPin, ExternalLink, Users, Sparkles, Zap } from "lucide-reac
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { supabase } from "@/integrations/supabase/client";
 import { DISCIPLINES, EXPERIENCE_LEVELS } from "@/lib/constants";
-import type { Profile, CollaborationWithDetails } from "@/types/independent";
+import type { Profile, CollaborationWithDetails } from "@/types/panal";
 import { CollabCard } from "@/pages/Feed";
 import VerifiedBadge from "@/components/VerifiedBadge";
 import ProfileActions from "@/components/ProfileActions";

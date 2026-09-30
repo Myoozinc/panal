@@ -50,7 +50,7 @@ const Privacy = () => {
         {/* Intro */}
         <div className="p-5 rounded-2xl bg-card border border-border/60 text-foreground space-y-2">
           <p className="font-semibold text-base">
-            En Independent, valoramos profundamente tu confianza y protegemos la privacidad de tu información personal y artística.
+            En Panal, valoramos profundamente tu confianza y protegemos la privacidad de tu información personal y artística.
           </p>
           <p className="text-xs sm:text-sm text-muted-foreground">
             Esta Política de Privacidad describe qué información recopilamos, cómo la utilizamos, cómo la protegemos y los derechos que tienes sobre tus datos personales al utilizar nuestra plataforma web y móvil.
@@ -91,7 +91,7 @@ const Privacy = () => {
               Divulgación sobre Servicios de API de Google
             </p>
             <p>
-              El uso y la transferencia que hace Independent a cualquier otra aplicación de la información recibida a través de las APIs de Google se adhieren estrictamente a la <strong>Política de Datos de Usuario de los Servicios de API de Google</strong>, incluidos los requisitos de <em>Uso Limitado (Limited Use Requirements)</em>:
+              El uso y la transferencia que hace Panal a cualquier otra aplicación de la información recibida a través de las APIs de Google se adhieren estrictamente a la <strong>Política de Datos de Usuario de los Servicios de API de Google</strong>, incluidos los requisitos de <em>Uso Limitado (Limited Use Requirements)</em>:
             </p>
             <ul className="list-disc list-inside space-y-1 pl-2">
               <li>Solo solicitamos los permisos estrictamente básicos de perfil (correo electrónico, nombre e imagen de perfil) para crear y autenticar tu cuenta de forma segura.</li>
@@ -122,7 +122,7 @@ const Privacy = () => {
             4. Compromiso de No Venta de Datos Personales
           </h2>
           <p className="p-4 rounded-xl bg-card border border-border/80 text-foreground font-semibold">
-            🚫 <strong>Independent NO vende, alquila, comercializa ni cede tus datos personales ni tus obras a terceros bajo ningún concepto.</strong>
+            🚫 <strong>Panal NO vende, alquila, comercializa ni cede tus datos personales ni tus obras a terceros bajo ningún concepto.</strong>
           </p>
           <p>
             Tus datos únicamente son procesados por nuestros proveedores de infraestructura técnica contratados bajo acuerdos de confidencialidad y protección de datos (como Supabase para el almacenamiento seguro de la base de datos y Vercel para el alojamiento de la aplicación).
@@ -174,7 +174,7 @@ const Privacy = () => {
             8. Contacto del Responsable de Privacidad
           </h2>
           <p>
-            Si tienes cualquier duda sobre esta Política de Privacidad o deseas ejercer tus derechos de acceso, rectificación o eliminación de datos, puedes contactarnos directamente a través del soporte de la aplicación o vía correo electrónico a: <strong>privacidad@independent.app</strong>.
+            Si tienes cualquier duda sobre esta Política de Privacidad o deseas ejercer tus derechos de acceso, rectificación o eliminación de datos, puedes contactarnos directamente a través del soporte de la aplicación o vía correo electrónico a: <strong>privacidad@panal.app</strong>.
           </p>
         </section>
 
@@ -182,7 +182,7 @@ const Privacy = () => {
 
       {/* Footer */}
       <footer className="border-t border-border/40 py-8 text-center text-xs text-muted-foreground">
-        <p>© {new Date().getFullYear()} Independent. Todos los derechos reservados.</p>
+        <p>© {new Date().getFullYear()} Panal. Todos los derechos reservados.</p>
         <div className="flex justify-center gap-4 mt-2">
           <Link to="/terms" className="hover:text-foreground underline">Condiciones de Uso</Link>
           <Link to="/privacy" className="hover:text-foreground underline">Política de Privacidad</Link>

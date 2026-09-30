@@ -1,11 +1,11 @@
 {
-  "name": "Independent — Red de Artistas",
-  "short_name": "Independent",
-  "description": "Encuentra, conecta y colabora con artistas independientes.",
+  "name": "Panal — Sinergia de Creadores",
+  "short_name": "Panal",
+  "description": "Encuentra, conecta y colabora con creadores y marcas en cualquier dominio.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0B0E14",
-  "theme_color": "#10B981",
+  "theme_color": "#F59E0B",
   "orientation": "portrait-primary",
   "icons": [
     {

@@ -19,7 +19,7 @@ import {
   Twitch,
   Linkedin,
 } from "lucide-react";
-import type { Profile } from "@/types/independent";
+import type { Profile } from "@/types/panal";
 import { DISCIPLINES } from "@/lib/constants";
 import VerifiedBadge from "@/components/VerifiedBadge";
 import { cn } from "@/lib/utils";

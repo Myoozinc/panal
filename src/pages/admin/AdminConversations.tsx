@@ -28,7 +28,7 @@ import { useToast } from "@/hooks/use-toast";
 import { OFFICIAL_APP_USER_ID, OFFICIAL_APP_PROFILE } from "@/lib/constants";
 import { getOrCreateAppConversation, broadcastUpdateToAllUsers } from "@/lib/officialChat";
 import AdminOfficialChatModal from "@/components/admin/AdminOfficialChatModal";
-import type { Conversation, Profile } from "@/types/independent";
+import type { Conversation, Profile } from "@/types/panal";
 import { cn } from "@/lib/utils";
 
 type ConvTab = "official" | "all" | "artists";
@@ -79,9 +79,9 @@ const AdminConversations = () => {
       // Inject official support profile for system ID
       byId.set(OFFICIAL_APP_USER_ID, {
         id: OFFICIAL_APP_USER_ID,
-        display_name: "Independent",
+        display_name: "Panal",
         username: "app",
-        avatar_url: "/independent-logo-v2.png",
+        avatar_url: "/logo.png",
       });
 
       // Fetch last messages
@@ -159,7 +159,7 @@ const AdminConversations = () => {
     setSendingBroadcast(true);
     try {
       const result = await broadcastUpdateToAllUsers(
-        broadcastTitle.trim() || "Aviso Oficial de Independent",
+        broadcastTitle.trim() || "Aviso Oficial de Panal",
         broadcastMessage.trim()
       );
 
@@ -169,7 +169,7 @@ const AdminConversations = () => {
 
       toast({
         title: "¡Mensaje enviado a todos los usuarios!",
-        description: `Se entregó en el chat de Independent de ${result.count} usuarios registrados.`,
+        description: `Se entregó en el chat de Panal de ${result.count} usuarios registrados.`,
       });
       setBroadcastOpen(false);
       setBroadcastTitle("");
@@ -201,7 +201,7 @@ const AdminConversations = () => {
             Bandeja de Mensajes y Soporte
           </h2>
           <p className="text-xs text-muted-foreground mt-0.5">
-            Comunícate como <strong>Independent</strong> con cada usuario o envía comunicados masivos a todos.
+            Comunícate como <strong>Panal</strong> con cada usuario o envía comunicados masivos a todos.
           </p>
         </div>
 
@@ -312,7 +312,7 @@ const AdminConversations = () => {
                     {isOfficial ? (
                       <div className="relative">
                         <Avatar className="w-10 h-10 border-2 border-primary/30">
-                          <AvatarImage src="/independent-logo-v2.png" />
+                          <AvatarImage src="/logo.png" />
                           <AvatarFallback className="bg-primary text-primary-foreground font-black text-xs">
                             IN
                           </AvatarFallback>
@@ -345,7 +345,7 @@ const AdminConversations = () => {
                     <div className="flex items-center gap-2">
                       <span className="text-sm font-bold truncate">
                         {isOfficial
-                          ? `Independent ↔ ${target?.display_name || "Usuario"}`
+                          ? `Panal ↔ ${target?.display_name || "Usuario"}`
                           : `${c.a?.display_name ?? "?"} ↔ ${c.b?.display_name ?? "?"}`}
                       </span>
                       {isOfficial && (
@@ -358,7 +358,7 @@ const AdminConversations = () => {
                     <div className="text-xs text-muted-foreground truncate mt-0.5">
                       {c.lastMsg?.content ? (
                         <span>
-                          {c.lastMsg.sender_id === OFFICIAL_APP_USER_ID ? "Independent: " : ""}
+                          {c.lastMsg.sender_id === OFFICIAL_APP_USER_ID ? "Panal: " : ""}
                           {c.lastMsg.content.replace(/\n+/g, " ")}
                         </span>
                       ) : (
@@ -409,7 +409,7 @@ const AdminConversations = () => {
               Enviar Mensaje a Todos los Usuarios
             </DialogTitle>
             <DialogDescription className="text-xs text-muted-foreground">
-              Este mensaje se entregará directamente en el chat oficial de <strong>Independent</strong> de cada usuario registrado.
+              Este mensaje se entregará directamente en el chat oficial de <strong>Panal</strong> de cada usuario registrado.
             </DialogDescription>
           </DialogHeader>
 
@@ -419,7 +419,7 @@ const AdminConversations = () => {
               <Input
                 value={broadcastTitle}
                 onChange={(e) => setBroadcastTitle(e.target.value)}
-                placeholder="Ej: 🚀 Novedades importantes en Independent"
+                placeholder="Ej: 🚀 Novedades importantes en Panal"
                 className="rounded-xl"
               />
             </div>
@@ -468,7 +468,7 @@ const AdminConversations = () => {
               Iniciar Chat Oficial con un Usuario
             </DialogTitle>
             <DialogDescription className="text-xs text-muted-foreground">
-              Selecciona a un usuario para comunicarte como <strong>Independent (la app)</strong>.
+              Selecciona a un usuario para comunicarte como <strong>Panal (la app)</strong>.
             </DialogDescription>
           </DialogHeader>
 

@@ -27,7 +27,7 @@ import { DISCIPLINES } from "@/lib/constants";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/components/AuthProvider";
 import { useToast } from "@/hooks/use-toast";
-import type { Profile } from "@/types/independent";
+import type { Profile } from "@/types/panal";
 
 interface PublishSquadModalProps {
   isOpen: boolean;

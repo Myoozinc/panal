@@ -390,7 +390,7 @@ const Onboarding = () => {
                   />
                   <p className="text-[11px] text-muted-foreground mt-1">
                     {form.username && form.username.length >= 3 && form.username.length <= 20 && usernameRegex.test(form.username) ? (
-                      <span className="text-emerald-500 font-medium">✓ Enlace público: independent.app/@{form.username}</span>
+                      <span className="text-amber-500 font-medium">✓ Enlace público: panal.app/@{form.username}</span>
                     ) : (
                       "Se formateará automáticamente en minúsculas y sin espacios."
                     )}

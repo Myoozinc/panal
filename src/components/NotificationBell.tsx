@@ -12,7 +12,7 @@ import { useAuth } from "@/components/AuthProvider";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import type { AppNotification } from "@/types/independent";
+import type { AppNotification } from "@/types/panal";
 
 const iconFor = (t: AppNotification["type"]) => {
   switch (t) {

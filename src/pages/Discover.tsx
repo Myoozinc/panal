@@ -27,7 +27,7 @@ import VerifiedBadge from "@/components/VerifiedBadge";
 import PanalMatchCard from "@/components/PanalMatchCard";
 import { PanalService } from "@/services/panalService";
 import { DISCIPLINES, type Discipline } from "@/lib/constants";
-import type { Profile } from "@/types/independent";
+import type { Profile } from "@/types/panal";
 import { cn } from "@/lib/utils";
 
 const disciplineLabel = (d: Discipline | null) => DISCIPLINES.find((x) => x.value === d)?.label ?? "Artista";

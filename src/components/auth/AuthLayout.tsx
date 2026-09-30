@@ -16,10 +16,10 @@ export const AuthLayout = ({ title, children }: AuthLayoutProps) => {
       <div className="w-full max-w-sm relative">
         <div className="flex flex-col items-center mb-6 animate-fade-in">
           <Logo size="xl" showText={false} className="mb-3 animate-scale-in" />
-          <h2 className="text-3xl font-black tracking-tight bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-            Independent
+          <h2 className="text-3xl font-black tracking-tight bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-500 bg-clip-text text-transparent">
+            Panal
           </h2>
-          <p className="text-xs text-muted-foreground mt-1">Encuentra. Conecta. Colabora.</p>
+          <p className="text-xs text-muted-foreground mt-1">Sinergia. Redes. Colaboraciones.</p>
         </div>
 
         <Card className="w-full border-border/40 shadow-2xl backdrop-blur-md bg-card/85 animate-scale-in rounded-3xl overflow-hidden">

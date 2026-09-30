@@ -29,7 +29,7 @@ export interface LiveUserPresence extends ClientGeoInfo {
   lastPing: string;
 }
 
-const CACHE_KEY = "independent_client_geo_cache";
+const CACHE_KEY = "panal_client_geo_cache";
 
 function getBrowserAndOS(): { browser: string; os: string; device: string } {
   if (typeof window === "undefined" || !navigator) {
@@ -169,13 +169,13 @@ let globalSessionId: string | null = null;
 export function getOrCreateSessionId(): string {
   if (globalSessionId) return globalSessionId;
   try {
-    const s = sessionStorage.getItem("independent_session_id");
+    const s = sessionStorage.getItem("panal_session_id");
     if (s) {
       globalSessionId = s;
       return s;
     }
     const newId = `sess_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-    sessionStorage.setItem("independent_session_id", newId);
+    sessionStorage.setItem("panal_session_id", newId);
     globalSessionId = newId;
     return newId;
   } catch {
@@ -200,7 +200,7 @@ export function useRealtimeTelemetry(user?: any, profile?: any) {
       if (!mounted) return;
       geoRef.current = geo;
 
-      const channel = supabase.channel("independent-live-monitor", {
+      const channel = supabase.channel("panal-live-monitor", {
         config: { presence: { key: sessionId } },
       });
       channelRef.current = channel;

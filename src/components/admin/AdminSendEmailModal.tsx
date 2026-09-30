@@ -47,7 +47,7 @@ export const AdminSendEmailModal = ({ open, onOpenChange, recipient }: AdminSend
       return;
     }
     const mailtoUrl = `mailto:${encodeURIComponent(recipient.email)}?subject=${encodeURIComponent(
-      subject || "Mensaje del equipo de Independent"
+      subject || "Mensaje del equipo de Panal"
     )}&body=${encodeURIComponent(body || "")}`;
     window.open(mailtoUrl, "_blank");
   };
@@ -55,19 +55,19 @@ export const AdminSendEmailModal = ({ open, onOpenChange, recipient }: AdminSend
   const applyTemplate = (type: "verification" | "support" | "welcome") => {
     const firstName = recipient.name?.split(" ")[0] || recipient.username || "amigo/a";
     if (type === "verification") {
-      setSubject("Información sobre tu solicitud de verificación en Independent");
+      setSubject("Información sobre tu solicitud de verificación en Panal");
       setBody(
-        `Hola ${firstName},\n\nTe escribimos desde el equipo de administración de Independent con respecto a la verificación de tu perfil.\n\n[Escribe aquí los detalles o requisitos adicionales]\n\n¡Gracias por ser parte de nuestra comunidad!\n\nAtentamente,\nEquipo Independent\n${window.location.origin}`
+        `Hola ${firstName},\n\nTe escribimos desde el equipo de administración de Panal con respecto a la verificación de tu perfil.\n\n[Escribe aquí los detalles o requisitos adicionales]\n\n¡Gracias por ser parte de nuestra comunidad!\n\nAtentamente,\nEquipo Panal\n${window.location.origin}`
       );
     } else if (type === "support") {
-      setSubject("Soporte Oficial - Independent");
+      setSubject("Soporte Oficial - Panal");
       setBody(
-        `Hola ${firstName},\n\nNos ponemos en contacto contigo para dar seguimiento a tu cuenta en Independent.\n\n[Escribe aquí tu mensaje de soporte]\n\nQuedamos a tu entera disposición para resolver cualquier duda.\n\nAtentamente,\nEquipo Independent`
+        `Hola ${firstName},\n\nNos ponemos en contacto contigo para dar seguimiento a tu cuenta en Panal.\n\n[Escribe aquí tu mensaje de soporte]\n\nQuedamos a tu entera disposición para resolver cualquier duda.\n\nAtentamente,\nEquipo Panal`
       );
     } else if (type === "welcome") {
-      setSubject("¡Bienvenido/a a Independent!");
+      setSubject("¡Bienvenido/a a Panal!");
       setBody(
-        `Hola ${firstName},\n\n¡Nos alegra darte la bienvenida a Independent!\n\nQueremos asegurarnos de que estés aprovechando al máximo la plataforma para conectar con otros artistas y creadores.\n\nSi necesitas ayuda completando tu perfil o tienes preguntas, responde con gusto a este correo.\n\nUn saludo,\nEquipo Independent`
+        `Hola ${firstName},\n\n¡Nos alegra darte la bienvenida a Panal!\n\nQueremos asegurarnos de que estés aprovechando al máximo la plataforma para conectar con otros artistas y creadores.\n\nSi necesitas ayuda completando tu perfil o tienes preguntas, responde con gusto a este correo.\n\nUn saludo,\nEquipo Panal`
       );
     }
   };
@@ -154,7 +154,7 @@ export const AdminSendEmailModal = ({ open, onOpenChange, recipient }: AdminSend
             <Input
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              placeholder="Ej: Novedades sobre tu perfil en Independent"
+              placeholder="Ej: Novedades sobre tu perfil en Panal"
               className="rounded-xl"
             />
           </div>

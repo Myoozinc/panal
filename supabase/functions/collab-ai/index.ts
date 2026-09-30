@@ -819,7 +819,7 @@ async function handleSuggestCollaborators(supabase: any, userId: string, agreeme
   if (candidateIds.length === 0) {
     await supabase.from("collab_agreement_messages").insert({
       agreement_id: agreementId, sender_id: null, sender_role: "ai",
-      message_type: "suggestion", content: "Aún no tienes otros matches para sumar. ¡Sigue descubriendo talento en Independent! ✨",
+      message_type: "suggestion", content: "Aún no tienes otros matches para sumar. ¡Sigue descubriendo talento en Panal! ✨",
       for_user_id: userId, metadata: { candidates: [] },
     });
     return { suggested: 0 };

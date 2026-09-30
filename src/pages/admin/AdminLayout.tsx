@@ -45,7 +45,7 @@ export const AdminLayout = () => {
             </Link>
             <div className="flex items-center gap-2 min-w-0">
               <Shield className="w-5 h-5 text-primary shrink-0" />
-              <h1 className="font-bold text-base sm:text-lg truncate">Independent Admin Console</h1>
+              <h1 className="font-bold text-base sm:text-lg truncate">Panal Admin Console</h1>
               <Badge variant="outline" className="hidden sm:inline-flex text-[10px] uppercase font-bold border-amber-500/40 text-amber-500 bg-amber-500/10">
                 Gingerboy
               </Badge>

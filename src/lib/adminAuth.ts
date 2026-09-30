@@ -2,8 +2,8 @@
 
 const MASTER_USER = "Gingerboy";
 const MASTER_PASS = "Rona12345";
-const STORAGE_KEY = "independent_master_admin_auth";
-const STORAGE_TIMESTAMP = "independent_master_admin_timestamp";
+const STORAGE_KEY = "panal_master_admin_auth";
+const STORAGE_TIMESTAMP = "panal_master_admin_timestamp";
 
 export function isMasterAdminAuthenticated(): boolean {
   if (typeof window === "undefined") return false;

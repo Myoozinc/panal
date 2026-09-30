@@ -46,7 +46,7 @@ export const AdminDashboard = () => {
 
   // Escuchar usuarios conectados en tiempo real
   useEffect(() => {
-    const channel = supabase.channel("independent-live-monitor");
+    const channel = supabase.channel("panal-live-monitor");
     const countPresence = () => {
       const state = channel.presenceState<LiveUserPresence>();
       const all: any[] = [];
@@ -301,7 +301,7 @@ export const AdminDashboard = () => {
             </Badge>
           </div>
           <p className="text-xs sm:text-sm text-muted-foreground mt-1 max-w-xl">
-            Visión global del ecosistema Independent: actividad en vivo, telemetría, interacciones, crecimiento y acuerdos colaborativos.
+            Visión global del ecosistema Panal: actividad en vivo, telemetría, interacciones, crecimiento y acuerdos colaborativos.
           </p>
         </div>
 

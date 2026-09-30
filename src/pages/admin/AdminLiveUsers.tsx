@@ -36,7 +36,7 @@ export const AdminLiveUsers = () => {
 
   // Suscripción al canal Supabase Realtime Presence
   useEffect(() => {
-    const channel = supabase.channel("independent-live-monitor");
+    const channel = supabase.channel("panal-live-monitor");
 
     const syncPresence = () => {
       const state = channel.presenceState<LiveUserPresence>();

@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { OFFICIAL_SUPPORT_USER_ID, OFFICIAL_SUPPORT_PROFILE } from "@/lib/constants";
 import VerifiedBadge from "@/components/VerifiedBadge";
 import { cn } from "@/lib/utils";
-import type { Message } from "@/types/independent";
+import type { Message } from "@/types/panal";
 
 interface AdminOfficialChatModalProps {
   open: boolean;
@@ -236,7 +236,7 @@ export const AdminOfficialChatModal = ({ open, onOpenChange, targetUser }: Admin
   };
 
   const cannedReplies = [
-    "¡Hola! Te escribimos del equipo de soporte de Independent. ¿Cómo podemos orientarte?",
+    "¡Hola! Te escribimos del equipo de soporte de Panal. ¿Cómo podemos orientarte?",
     "Hemos revisado tu perfil y todo está en orden. ¡Mucho éxito en tus colaboraciones!",
     "Recuerda que puedes completar tus géneros y pistas musicales para destacar en Discover.",
   ];
@@ -261,7 +261,7 @@ export const AdminOfficialChatModal = ({ open, onOpenChange, targetUser }: Admin
               </div>
               <div className="min-w-0">
                 <DialogTitle className="text-sm font-bold flex items-center gap-1.5">
-                  <span>Independent</span>
+                  <span>Panal</span>
                   <VerifiedBadge size={13} />
                   <span className="text-[10px] font-bold bg-primary/15 text-primary border border-primary/30 px-1.5 py-0.2 rounded-full">
                     App Oficial
@@ -270,7 +270,7 @@ export const AdminOfficialChatModal = ({ open, onOpenChange, targetUser }: Admin
                 <DialogDescription className="text-xs text-muted-foreground truncate">
                   Chat oficial con{" "}
                   <strong className="text-foreground">{targetUser.display_name || `@${targetUser.username}`}</strong> ·{" "}
-                  <span className="text-primary font-medium">Enviando como la app Independent</span>
+                  <span className="text-primary font-medium">Enviando como la app Panal</span>
                 </DialogDescription>
               </div>
             </div>
@@ -281,7 +281,7 @@ export const AdminOfficialChatModal = ({ open, onOpenChange, targetUser }: Admin
         <div className="px-4 py-2 bg-primary/5 border-b border-primary/15 text-[11px] text-muted-foreground flex items-center gap-2">
           <Shield className="w-3.5 h-3.5 text-primary shrink-0" />
           <span>
-            Los mensajes se envían con el nombre y logo de <strong>Independent</strong> (la app). El usuario lo recibe en su canal oficial de mensajes.
+            Los mensajes se envían con el nombre y logo de <strong>Panal</strong> (la app). El usuario lo recibe en su canal oficial de mensajes.
           </span>
         </div>
 
@@ -300,7 +300,7 @@ export const AdminOfficialChatModal = ({ open, onOpenChange, targetUser }: Admin
               <h4 className="text-sm font-bold">Inicia la conversación oficial</h4>
               <p className="text-xs text-muted-foreground max-w-sm mx-auto">
                 Envía el primer mensaje oficial a {targetUser.display_name || `@${targetUser.username}`}. El usuario
-                recibirá una notificación en su buzón de Independent.
+                recibirá una notificación en su buzón de Panal.
               </p>
               <div className="pt-2 flex flex-col gap-1.5 max-w-md mx-auto">
                 <p className="text-[11px] font-semibold text-muted-foreground flex items-center justify-center gap-1">
@@ -336,7 +336,7 @@ export const AdminOfficialChatModal = ({ open, onOpenChange, targetUser }: Admin
                   <div className={cn("max-w-[78%] space-y-1", isOfficial ? "items-end text-right" : "items-start")}>
                     <div className="text-[10px] text-muted-foreground px-1">
                       {isOfficial ? (
-                        <span className="font-semibold text-primary">Independent (App)</span>
+                        <span className="font-semibold text-primary">Panal (App)</span>
                       ) : (
                         <span>{targetUser.display_name || `@${targetUser.username}`}</span>
                       )}{" "}
@@ -393,7 +393,7 @@ export const AdminOfficialChatModal = ({ open, onOpenChange, targetUser }: Admin
             <Input
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder="Escribe un mensaje oficial como Independent..."
+              placeholder="Escribe un mensaje oficial como Panal..."
               disabled={sending || loading}
               className="rounded-full bg-background"
             />

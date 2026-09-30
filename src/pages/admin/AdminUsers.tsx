@@ -20,7 +20,7 @@ import VerifiedBadge from "@/components/VerifiedBadge";
 import { AdminSendEmailModal } from "@/components/admin/AdminSendEmailModal";
 import { AdminOfficialChatModal } from "@/components/admin/AdminOfficialChatModal";
 import { useToast } from "@/hooks/use-toast";
-import type { AdminUser } from "@/types/independent";
+import type { AdminUser } from "@/types/panal";
 
 const AdminUsers = () => {
   const { toast } = useToast();
@@ -202,7 +202,7 @@ const AdminUsers = () => {
                         is_verified: p.is_verified,
                       });
                     }}
-                    title="Chat Oficial de la App (Equipo Independent)"
+                    title="Chat Oficial de la App (Equipo Panal)"
                     className="w-8 h-8 rounded-full text-primary hover:bg-primary/15 relative"
                   >
                     <MessageSquare className="w-4 h-4" />

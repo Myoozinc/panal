@@ -21,15 +21,15 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { broadcastUpdateToAllUsers } from "@/lib/officialChat";
-import type { AdminEmailItem } from "@/types/independent";
+import type { AdminEmailItem } from "@/types/panal";
 
 const AdminBroadcast = () => {
   const { toast } = useToast();
   const [copiedBcc, setCopiedBcc] = useState(false);
-  const currentUrl = typeof window !== "undefined" ? window.location.origin : "https://independent-app.vercel.app";
-  const [emailSubject, setEmailSubject] = useState("🚀 ¡Nueva actualización en Independent! Descubre las novedades");
+  const currentUrl = typeof window !== "undefined" ? window.location.origin : "https://panal.app";
+  const [emailSubject, setEmailSubject] = useState("🚀 ¡Nueva actualización en Panal! Descubre las novedades");
   const [emailBody, setEmailBody] = useState(
-    `Hola a todos,\n\nQueremos contarles que acabamos de lanzar una nueva actualización en Independent con importantes mejoras para toda la comunidad:\n\n• Encuadre y edición de fotos de perfil al subir imágenes\n• Soporte optimizado para capturas y fotos en alta resolución\n• Mejoras en el sistema de conexiones y chat directo\n\nIngresa ahora para actualizar tu perfil y conectar con nuevos artistas:\n${typeof window !== "undefined" ? window.location.origin : "https://independent-app.vercel.app"}\n\n¡Gracias por ser parte de Independent!\n\nAtentamente,\nEquipo Independent`
+    `Hola a todos,\n\nQueremos contarles que acabamos de lanzar una nueva actualización en Panal con importantes mejoras para toda la comunidad:\n\n• Recap interactivo de redes sociales y potencial de colaboración\n• Soporte optimizado para capturas y fotos en alta resolución\n• Mejoras en el sistema de conexiones y chat directo\n\nIngresa ahora para actualizar tu perfil y conectar con nuevos creadores:\n${typeof window !== "undefined" ? window.location.origin : "https://panal.app"}\n\n¡Gracias por ser parte de Panal!\n\nAtentamente,\nEquipo Panal`
   );
 
   const [inAppTitle, setInAppTitle] = useState("¡Nueva actualización disponible!");
@@ -121,7 +121,7 @@ const AdminBroadcast = () => {
     // Note: mailto URLs have length limits in some operating systems (~2000 chars),
     // so we take the first batch if large, or recommend copy-paste.
     const bccList = validEmails.slice(0, 50).join(",");
-    const mailtoUrl = `mailto:soporte@independent.app?bcc=${encodeURIComponent(bccList)}&subject=${encodeURIComponent(
+    const mailtoUrl = `mailto:soporte@panal.app?bcc=${encodeURIComponent(bccList)}&subject=${encodeURIComponent(
       emailSubject
     )}&body=${encodeURIComponent(emailBody)}`;
 
@@ -158,7 +158,7 @@ const AdminBroadcast = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", `independent_usuarios_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute("download", `panal_usuarios_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -183,7 +183,7 @@ const AdminBroadcast = () => {
       }
       toast({
         title: "¡Mensaje publicado en la App!",
-        description: `Se entregó el mensaje en el chat de Independent de ${result.count || users.length} usuarios registrados.`,
+        description: `Se entregó el mensaje en el chat de Panal de ${result.count || users.length} usuarios registrados.`,
       });
     } catch (err: any) {
       console.error("Error broadcasting notification:", err);
@@ -199,19 +199,19 @@ const AdminBroadcast = () => {
 
   const applyEmailTemplate = (template: "update" | "community" | "maintenance") => {
     if (template === "update") {
-      setEmailSubject("🚀 ¡Nueva actualización en Independent! Descubre las novedades");
+      setEmailSubject("🚀 ¡Nueva actualización en Panal! Descubre las novedades");
       setEmailBody(
-        `Hola a todos,\n\nQueremos contarles que acabamos de lanzar una nueva actualización en Independent con importantes mejoras para toda la comunidad:\n\n• Encuadre y edición de fotos de perfil al subir imágenes\n• Soporte universal para fotos y capturas desde cualquier dispositivo móvil\n• Mejoras en el sistema de conexiones y chat directo\n\nIngresa ahora para actualizar tu perfil y conectar con nuevos artistas:\n${currentUrl}\n\n¡Gracias por ser parte de Independent!\n\nAtentamente,\nEquipo Independent`
+        `Hola a todos,\n\nQueremos contarles que acabamos de lanzar una nueva actualización en Panal con importantes mejoras para toda la comunidad:\n\n• Encuadre y edición de fotos de perfil al subir imágenes\n• Soporte universal para fotos y capturas desde cualquier dispositivo móvil\n• Mejoras en el sistema de conexiones y chat directo\n\nIngresa ahora para actualizar tu perfil y conectar con nuevos artistas:\n${currentUrl}\n\n¡Gracias por ser parte de Panal!\n\nAtentamente,\nEquipo Panal`
       );
     } else if (template === "community") {
-      setEmailSubject("🎵 Nuevas oportunidades de colaboración en Independent");
+      setEmailSubject("🎵 Nuevas oportunidades de colaboración en Panal");
       setEmailBody(
-        `Hola artista,\n\nLa comunidad de Independent sigue creciendo. Cada día más productores, músicos, cantantes y creadores buscan nuevos talentos para sus proyectos.\n\nConsejos para destacar:\n1. Mantén al día tus géneros y habilidades en tu perfil.\n2. Sube tus mejores enlaces a Spotify, YouTube o SoundCloud.\n3. Explora Discover y da me gusta a quienes encajen con tu visión.\n\nConéctate hoy mismo:\n${currentUrl}\n\nSaludos cordiales,\nEquipo Independent`
+        `Hola artista,\n\nLa comunidad de Panal sigue creciendo. Cada día más productores, músicos, cantantes y creadores buscan nuevos talentos para sus proyectos.\n\nConsejos para destacar:\n1. Mantén al día tus géneros y habilidades en tu perfil.\n2. Sube tus mejores enlaces a Spotify, YouTube o SoundCloud.\n3. Explora Discover y da me gusta a quienes encajen con tu visión.\n\nConéctate hoy mismo:\n${currentUrl}\n\nSaludos cordiales,\nEquipo Panal`
       );
     } else if (template === "maintenance") {
-      setEmailSubject("🛠️ Aviso de mejoras y optimizaciones en Independent");
+      setEmailSubject("🛠️ Aviso de mejoras y optimizaciones en Panal");
       setEmailBody(
-        `Hola,\n\nTe informamos que estamos realizando trabajos de optimización y mejoras de estabilidad en nuestros servidores para ofrecerte una experiencia aún más rápida y fluida.\n\nSi experimentas alguna interrupción puntual, nuestro equipo de soporte está atento para asistirte.\n\nGracias por tu confianza,\nEquipo Independent`
+        `Hola,\n\nTe informamos que estamos realizando trabajos de optimización y mejoras de estabilidad en nuestros servidores para ofrecerte una experiencia aún más rápida y fluida.\n\nSi experimentas alguna interrupción puntual, nuestro equipo de soporte está atento para asistirte.\n\nGracias por tu confianza,\nEquipo Panal`
       );
     }
   };
@@ -404,7 +404,7 @@ const AdminBroadcast = () => {
                 <BellRing className="w-4 h-4 text-primary" /> Publicar en el Chat de la App
               </h3>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Envía un mensaje oficial desde la app Independent que quedará guardado en el chat de todos los usuarios registrados y les enviará una notificación con acceso directo al chat.
+                Envía un mensaje oficial desde la app Panal que quedará guardado en el chat de todos los usuarios registrados y les enviará una notificación con acceso directo al chat.
               </p>
             </div>
 
@@ -413,7 +413,7 @@ const AdminBroadcast = () => {
               <Input
                 value={inAppTitle}
                 onChange={(e) => setInAppTitle(e.target.value)}
-                placeholder="Ej: 🚀 ¡Nueva versión disponible en Independent!"
+                placeholder="Ej: 🚀 ¡Nueva versión disponible en Panal!"
                 className="rounded-xl font-medium"
               />
             </div>
@@ -431,7 +431,7 @@ const AdminBroadcast = () => {
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
               <p className="text-xs text-muted-foreground">
-                Se enviará como <strong>Independent</strong> al chat oficial de los {users.length} usuarios registrados.
+                Se enviará como <strong>Panal</strong> al chat oficial de los {users.length} usuarios registrados.
               </p>
               <Button
                 size="sm"

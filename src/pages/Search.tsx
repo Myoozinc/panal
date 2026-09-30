@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import VerifiedBadge from "@/components/VerifiedBadge";
 import { DISCIPLINES } from "@/lib/constants";
-import type { Profile } from "@/types/independent";
+import type { Profile } from "@/types/panal";
 
 const label = (d: Profile["discipline"]) => DISCIPLINES.find((x) => x.value === d)?.label ?? "Artista";
 

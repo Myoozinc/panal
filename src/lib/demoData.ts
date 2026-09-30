@@ -1,4 +1,4 @@
-import type { Profile } from "@/types/independent";
+import type { Profile } from "@/types/panal";
 
 export const DEMO_CREATORS: Profile[] = [
   {

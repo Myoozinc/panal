@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { OFFICIAL_APP_USER_ID, OFFICIAL_APP_PROFILE } from "@/lib/constants";
 import AdminOfficialChatModal from "@/components/admin/AdminOfficialChatModal";
-import type { Conversation, Message, Profile } from "@/types/independent";
+import type { Conversation, Message, Profile } from "@/types/panal";
 import { cn } from "@/lib/utils";
 
 const AdminConversationDetail = () => {
@@ -32,7 +32,7 @@ const AdminConversationDetail = () => {
   const [modalTargetUser, setModalTargetUser] = useState<Profile | null>(null);
 
   const cannedReplies = [
-    "¡Hola! Te escribe el equipo de Independent. ¿En qué podemos orientarte?",
+    "¡Hola! Te escribe el equipo de Panal. ¿En qué podemos orientarte?",
     "Hemos revisado tu perfil y todo está en orden. ¡Mucho éxito en tus colaboraciones!",
     "Recuerda que puedes completar tus géneros y pistas musicales para destacar en Discover.",
     "Gracias por ponerte en contacto. Estamos trabajando en resolver tu inquietud a la brevedad.",
@@ -74,9 +74,9 @@ const AdminConversationDetail = () => {
       // Inject official app profile for system user
       byId.set(OFFICIAL_APP_USER_ID, {
         id: OFFICIAL_APP_USER_ID,
-        display_name: "Independent",
+        display_name: "Panal",
         username: "app",
-        avatar_url: "/independent-logo-v2.png",
+        avatar_url: "/logo.png",
         discipline: "other",
         is_verified: true,
       });
@@ -187,7 +187,7 @@ const AdminConversationDetail = () => {
           <div className="relative shrink-0">
             {isOfficial ? (
               <Avatar className="w-11 h-11 border-2 border-primary/30">
-                <AvatarImage src="/independent-logo-v2.png" />
+                <AvatarImage src="/logo.png" />
                 <AvatarFallback className="bg-primary text-primary-foreground font-black text-xs">
                   IN
                 </AvatarFallback>
@@ -210,7 +210,7 @@ const AdminConversationDetail = () => {
             <div className="text-sm font-bold truncate flex items-center gap-1.5">
               {isOfficial ? (
                 <>
-                  <span>Independent</span>
+                  <span>Panal</span>
                   <span className="text-muted-foreground font-normal">↔</span>
                   <span>{targetUser?.display_name || "Usuario"}</span>
                   <span className="text-[9px] font-bold bg-primary/15 text-primary border border-primary/30 px-1.5 py-0.2 rounded-full">
@@ -246,7 +246,7 @@ const AdminConversationDetail = () => {
         <div className="bg-primary/10 border border-primary/25 rounded-2xl p-3 text-xs flex items-center gap-2.5 text-foreground">
           <Shield className="w-4 h-4 text-primary shrink-0" />
           <span className="leading-relaxed">
-            Estás en el <strong>Canal Oficial de Independent</strong> con {targetUser?.display_name}. Todos los mensajes que envíes aquí se entregarán con el nombre y logo de la aplicación.
+            Estás en el <strong>Canal Oficial de Panal</strong> con {targetUser?.display_name}. Todos los mensajes que envíes aquí se entregarán con el nombre y logo de la aplicación.
           </span>
         </div>
       ) : (
@@ -327,7 +327,7 @@ const AdminConversationDetail = () => {
                 >
                   <div className="text-[10px] text-muted-foreground px-1">
                     <span className="font-semibold text-foreground">
-                      {isFromApp ? "Independent (App Oficial)" : sender?.display_name ?? "?"}
+                      {isFromApp ? "Panal (App Oficial)" : sender?.display_name ?? "?"}
                     </span>{" "}
                     · {new Date(m.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                   </div>
@@ -346,7 +346,7 @@ const AdminConversationDetail = () => {
 
                 {isFromApp && (
                   <Avatar className="w-7 h-7 mt-0.5 shrink-0 border border-primary/30">
-                    <AvatarImage src="/independent-logo-v2.png" />
+                    <AvatarImage src="/logo.png" />
                     <AvatarFallback className="bg-primary text-primary-foreground font-black text-[9px]">
                       IN
                     </AvatarFallback>
@@ -379,7 +379,7 @@ const AdminConversationDetail = () => {
             <Input
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder={`Escribe un mensaje oficial como Independent para ${targetUser?.display_name || "el usuario"}...`}
+              placeholder={`Escribe un mensaje oficial como Panal para ${targetUser?.display_name || "el usuario"}...`}
               disabled={sending}
               className="rounded-xl h-11 bg-background"
             />

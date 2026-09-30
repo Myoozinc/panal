@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { OFFICIAL_APP_USER_ID, OFFICIAL_APP_PROFILE } from "@/lib/constants";
 import { getOrCreateAppConversation } from "@/lib/officialChat";
 import { PanalService } from "@/services/panalService";
-import type { Profile } from "@/types/independent";
+import type { Profile } from "@/types/panal";
 
 interface ConvMemberInfo {
   user_id: string;

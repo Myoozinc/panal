@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import VerifiedBadge from "@/components/VerifiedBadge";
 import { cn } from "@/lib/utils";
 import { OFFICIAL_SUPPORT_USER_ID, OFFICIAL_SUPPORT_PROFILE, DISCIPLINES } from "@/lib/constants";
-import type { Message, Profile, Conversation } from "@/types/independent";
+import type { Message, Profile, Conversation } from "@/types/panal";
 import { PublishSquadModal } from "@/components/PublishSquadModal";
 
 const Chat = () => {
@@ -192,19 +192,19 @@ const Chat = () => {
           isAppOfficial ? (
             <div className="flex items-center gap-3 flex-1 min-w-0">
               <div className="relative shrink-0">
-                <Avatar className="w-10 h-10 border border-primary/30">
-                  <AvatarImage src="/independent-logo-v2.png" />
-                  <AvatarFallback className="bg-primary text-primary-foreground font-black text-xs">IN</AvatarFallback>
+                <Avatar className="w-10 h-10 border border-amber-500/30">
+                  <AvatarImage src="/logo.png" />
+                  <AvatarFallback className="bg-amber-400 text-slate-950 font-black text-xs">🐝</AvatarFallback>
                 </Avatar>
-                <div className="absolute -bottom-1 -right-1 bg-primary text-primary-foreground rounded-full p-0.5 shadow">
+                <div className="absolute -bottom-1 -right-1 bg-amber-500 text-slate-950 rounded-full p-0.5 shadow">
                   <Shield className="w-3 h-3 fill-current" />
                 </div>
               </div>
               <div className="min-w-0">
                 <div className="font-bold text-sm truncate flex items-center gap-1.5">
-                  <span>Independent</span>
+                  <span>Panal</span>
                   <VerifiedBadge size={14} />
-                  <span className="text-[10px] font-bold bg-primary/15 text-primary border border-primary/30 px-1.5 py-0.2 rounded-full">
+                  <span className="text-[10px] font-bold bg-amber-500/15 text-amber-500 border border-amber-500/30 px-1.5 py-0.2 rounded-full">
                     App Oficial
                   </span>
                 </div>
@@ -264,10 +264,10 @@ const Chat = () => {
 
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-2">
         {isAppOfficial && (
-          <div className="bg-primary/10 border border-primary/25 rounded-2xl p-3.5 text-xs flex items-start gap-3 mb-4 shadow-sm">
-            <Shield className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+          <div className="bg-amber-500/10 border border-amber-500/25 rounded-2xl p-3.5 text-xs flex items-start gap-3 mb-4 shadow-sm">
+            <Shield className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold text-primary mb-0.5">Canal Oficial de Independent</p>
+              <p className="font-bold text-amber-500 mb-0.5">Canal Oficial de Panal</p>
               <p className="text-muted-foreground text-[11px] leading-relaxed">
                 Este es el canal oficial de la aplicación. Aquí recibirás novedades, actualizaciones de la plataforma y respuestas del soporte. Todos los avisos quedan guardados aquí.
               </p>

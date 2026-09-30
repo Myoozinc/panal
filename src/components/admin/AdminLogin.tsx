@@ -50,7 +50,7 @@ export const AdminLogin = ({ onSuccess }: AdminLoginProps) => {
                 <Lock className="w-3 h-3" /> Panel Oculto de Administración
               </div>
               <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
-                Independent Master Console
+                Panal Master Console
               </h1>
               <p className="text-xs text-muted-foreground mt-1">
                 Ingresa tus credenciales maestras para acceder a métricas, IPs en tiempo real y gestión global.
@@ -126,7 +126,7 @@ export const AdminLogin = ({ onSuccess }: AdminLoginProps) => {
         </div>
 
         <div className="text-center mt-4 text-[11px] text-muted-foreground/60 flex items-center justify-center gap-1">
-          <Sparkles className="w-3 h-3 text-primary/40" /> Independent Admin System · Acceso Seguro
+          <Sparkles className="w-3 h-3 text-primary/40" /> Panal Admin System · Acceso Seguro
         </div>
       </div>
     </div>

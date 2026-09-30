@@ -24,7 +24,7 @@ import { compressImage } from "@/lib/image";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/components/AuthProvider";
 import { DISCIPLINES, type Discipline } from "@/lib/constants";
-import type { Profile } from "@/types/independent";
+import type { Profile } from "@/types/panal";
 import { cn } from "@/lib/utils";
 
 const urlOrEmpty = z.string().trim().url().or(z.literal(""));

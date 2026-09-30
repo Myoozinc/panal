@@ -22,7 +22,7 @@ import { AdminSendEmailModal } from "@/components/admin/AdminSendEmailModal";
 import { AdminOfficialChatModal } from "@/components/admin/AdminOfficialChatModal";
 import { useToast } from "@/hooks/use-toast";
 import { DISCIPLINES } from "@/lib/constants";
-import type { Profile, Conversation } from "@/types/independent";
+import type { Profile, Conversation } from "@/types/panal";
 
 const AdminUserDetail = () => {
   const { userId } = useParams();

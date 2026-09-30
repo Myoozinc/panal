@@ -1,5 +1,5 @@
 import { DISCIPLINES, type Discipline } from "@/lib/constants";
-import type { Profile } from "@/types/independent";
+import type { Profile } from "@/types/panal";
 
 export interface CompatibilityResult {
   score: number; // 62 - 98
@@ -141,9 +141,9 @@ export function calculateCompatibility(
 
   if (reasons.length === 0) {
     if (candidate.discipline) {
-      reasons.push(`Perfil de ${disciplineName(candidate.discipline)} activo en Independent`);
+      reasons.push(`Perfil de ${disciplineName(candidate.discipline)} activo en Panal`);
     } else {
-      reasons.push("Propuesta artística para explorar y colaborar");
+      reasons.push("Propuesta creativa para explorar y colaborar");
     }
   }
 

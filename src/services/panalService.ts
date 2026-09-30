@@ -1,5 +1,5 @@
 import { DEMO_CREATORS } from "@/lib/demoData";
-import type { Profile } from "@/types/independent";
+import type { Profile } from "@/types/panal";
 import { isFirebaseConfigured, db } from "@/lib/firebase";
 import {
   collection,

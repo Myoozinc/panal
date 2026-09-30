@@ -15,7 +15,7 @@ import {
   Share2,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import type { CollaborationWithDetails } from "@/types/independent";
+import type { CollaborationWithDetails } from "@/types/panal";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/AuthProvider";
 import PageHeader from "@/components/PageHeader";
