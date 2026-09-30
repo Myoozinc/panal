@@ -1,4 +1,3 @@
-import React from "react";
 import panalLogo from "@/assets/panal-logo.png";
 import { cn } from "@/lib/utils";
 
@@ -9,7 +8,7 @@ interface LogoProps {
 }
 
 const sizeMap = {
-  sm: { box: "w-8 h-8", text: "text-base" },
+  sm: { box: "w-8 h-8", text: "text-lg" },
   md: { box: "w-10 h-10", text: "text-xl" },
   lg: { box: "w-14 h-14", text: "text-2xl" },
   xl: { box: "w-20 h-20", text: "text-4xl" },
@@ -19,23 +18,23 @@ const Logo = ({ size = "md", showText = true, className }: LogoProps) => {
   const s = sizeMap[size];
   return (
     <div className={cn("flex items-center gap-2.5 select-none", className)}>
-      <div className={cn("flex items-center justify-center shrink-0 overflow-hidden rounded-full drop-shadow-[0_2px_10px_rgba(245,158,11,0.35)]", s.box)}>
-        <img
-          src={panalLogo}
-          alt="Panal"
-          className="w-full h-full object-cover rounded-full"
-        />
+      <div
+        className={cn(
+          "relative shrink-0 overflow-hidden rounded-full bg-white ring-1 ring-black/5 shadow-[0_4px_14px_-4px_rgba(217,119,6,0.45)]",
+          s.box,
+        )}
+      >
+        {/* The source PNG has padding around the badge; scale it so the circle fills the frame. */}
+        <img src={panalLogo} alt="Panal" className="w-full h-full object-cover scale-[1.46]" />
       </div>
       {showText && (
-        <div className="flex flex-col">
-          <div className="flex items-center gap-1.5">
-            <span className={cn("font-black tracking-tight bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-500 bg-clip-text text-transparent", s.text)}>
-              Panal
-            </span>
-            <span className="text-[10px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-500 border border-amber-500/30">
-              BETA
-            </span>
-          </div>
+        <div className="flex items-center gap-2">
+          <span className={cn("font-display font-extrabold tracking-tight text-foreground", s.text)}>
+            Panal
+          </span>
+          <span className="text-[9px] font-bold uppercase tracking-[0.14em] px-1.5 py-0.5 rounded-md bg-amber-500/10 text-amber-700 dark:text-amber-400 ring-1 ring-inset ring-amber-500/25">
+            Beta
+          </span>
         </div>
       )}
     </div>
