@@ -60,7 +60,7 @@ const schema = z.object({
 });
 
 const MyProfile = () => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const { data: profile, isLoading } = useProfile();
   const { isAdmin } = useIsAdmin();
   const navigate = useNavigate();
@@ -500,7 +500,7 @@ const MyProfile = () => {
       <Button
         variant="ghost"
         className="w-full text-destructive hover:text-destructive"
-        onClick={async () => { await supabase.auth.signOut(); navigate("/"); }}
+        onClick={signOut}
       >
         <LogOut className="w-4 h-4 mr-2" /> Cerrar sesión
       </Button>

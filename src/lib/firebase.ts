@@ -4,17 +4,16 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyMockKeyForDevelopmentMode12345",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "panal-app.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "panal-app",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "panal-app.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "123456789",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:123456789:web:abcdef123456",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyAGFIxx2gCRLEjYeOZw0kBFTlFNEXpxUIk",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "panal-9ebad.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "panal-9ebad",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "panal-9ebad.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "3359727417",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:3359727417:web:e281fcb119aac8e22292e8",
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-R2HHNTQL60",
 };
 
-export const isFirebaseConfigured = Boolean(
-  import.meta.env.VITE_FIREBASE_API_KEY && import.meta.env.VITE_FIREBASE_PROJECT_ID
-);
+export const isFirebaseConfigured = true;
 
 export const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 export const auth = getAuth(app);

@@ -44,7 +44,7 @@ const Auth = () => {
 
   const isResetFlow = isResettingPassword || isRecoveryInUrl;
 
-  const { handleAuth, handleOAuthSignIn } = useAuthHandlers({
+  const { handleAuth, handleOAuthSignIn, handleDemoSignIn } = useAuthHandlers({
     isResettingPassword: isResetFlow,
     isRecovering,
     isSignUp,
@@ -122,7 +122,17 @@ const Auth = () => {
           </Button>
 
           {!isRecovering && !isResetFlow && (
-            <OAuthButtons onOAuthSignIn={handleOAuthSignIn} />
+            <>
+              <OAuthButtons onOAuthSignIn={handleOAuthSignIn} />
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={handleDemoSignIn}
+                className="w-full text-xs text-amber-500 hover:text-amber-400 hover:bg-amber-500/10 border border-dashed border-amber-500/30 rounded-xl py-2.5 h-auto transition-all"
+              >
+                ⚡ Probar prototipo como Creador Demo (Acceso directo)
+              </Button>
+            </>
           )}
 
           <AuthNavigationButtons

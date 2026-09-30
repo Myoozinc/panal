@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth, isFirebaseConfigured } from "@/lib/firebase";
+import { onAuthStateChanged, signOut as fbSignOut } from "firebase/auth";
 import { supabase } from "@/integrations/supabase/client";
 import type { User, Session } from "@supabase/supabase-js";
 
@@ -7,12 +9,14 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  signOut: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({ 
   user: null, 
   session: null, 
-  loading: true 
+  loading: true,
+  signOut: async () => {},
 });
 
 export const useAuth = () => {
@@ -29,63 +33,102 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const handleSignOut = async () => {
+    try {
+      if (isFirebaseConfigured) {
+        await fbSignOut(auth);
+      }
+    } catch (e) {
+      console.warn("Firebase signout error:", e);
+    }
+    try {
+      await supabase.auth.signOut();
+    } catch (e) {
+      console.warn("Supabase signout error:", e);
+    }
+    localStorage.removeItem("panal_demo_session");
+    setUser(null);
+    setSession(null);
+    navigate("/auth", { replace: true });
+  };
+
   useEffect(() => {
-    // Set up auth state listener FIRST to avoid missing events
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-      
-      // Handle auth events securely
-      if (event === 'SIGNED_OUT') {
-        // Use setTimeout to avoid navigation during auth callback
-        setTimeout(() => {
-          navigate("/auth", { replace: true });
-        }, 0);
-      } else if (event === 'PASSWORD_RECOVERY') {
-        // Navigate to password reset form
-        setTimeout(() => {
-          navigate("/auth?reset=true", { replace: true });
-        }, 0);
-      } else if (event === 'SIGNED_IN' && session?.user) {
-        setTimeout(() => {
-          const search = window.location.search;
-          const hash = window.location.hash;
-          const isRecovery = 
-            search.includes('type=recovery') || 
-            search.includes('reset=true') || 
-            hash.includes('type=recovery');
+    let unsubscribeFb: (() => void) | null = null;
 
-          if (isRecovery) {
-            if (!search.includes('reset=true')) {
-              navigate("/auth?reset=true", { replace: true });
-            }
-            return;
-          }
+    if (isFirebaseConfigured) {
+      // 1. Listen to Firebase auth state
+      unsubscribeFb = onAuthStateChanged(auth, (fbUser) => {
+        if (fbUser) {
+          const mappedUser: any = {
+            id: fbUser.uid,
+            email: fbUser.email || "",
+            user_metadata: {
+              full_name: fbUser.displayName || fbUser.email?.split("@")[0] || "Creador Panal",
+              avatar_url: fbUser.photoURL || "/logo.png",
+              username: (fbUser.displayName || fbUser.email?.split("@")[0] || "creador")
+                .toLowerCase()
+                .replace(/\s+/g, "_")
+                .replace(/[^a-z0-9_]/g, ""),
+            },
+            app_metadata: { provider: "firebase" },
+            aud: "authenticated",
+            created_at: fbUser.metadata.creationTime || new Date().toISOString(),
+          };
+          setUser(mappedUser);
+          setSession({ user: mappedUser } as any);
+          setLoading(false);
 
-          if (window.location.pathname === '/auth') {
+          if (window.location.pathname === "/auth") {
             navigate("/discover", { replace: true });
           }
-        }, 0);
-      }
-    });
+        } else {
+          // Check local demo session
+          const demoRaw = localStorage.getItem("panal_demo_session");
+          if (demoRaw) {
+            try {
+              const demoUser = JSON.parse(demoRaw);
+              setUser(demoUser);
+              setSession({ user: demoUser } as any);
+              setLoading(false);
+              return;
+            } catch {}
+          }
 
-    // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
+          // If no Firebase user, check Supabase as secondary fallback
+          supabase.auth.getSession().then(({ data: { session: sbSession } }) => {
+            if (sbSession?.user) {
+              setSession(sbSession);
+              setUser(sbSession.user);
+            } else {
+              setUser(null);
+              setSession(null);
+            }
+            setLoading(false);
+          });
+        }
+      });
+    } else {
+      // Supabase fallback only
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, sbSession) => {
+        setSession(sbSession);
+        setUser(sbSession?.user ?? null);
+        setLoading(false);
+      });
+      supabase.auth.getSession().then(({ data: { session: sbSession } }) => {
+        setSession(sbSession);
+        setUser(sbSession?.user ?? null);
+        setLoading(false);
+      });
+      return () => subscription.unsubscribe();
+    }
 
     return () => {
-      subscription.unsubscribe();
+      if (unsubscribeFb) unsubscribeFb();
     };
   }, [navigate]);
 
   return (
-    <AuthContext.Provider value={{ user, session, loading }}>
+    <AuthContext.Provider value={{ user, session, loading, signOut: handleSignOut }}>
       {!loading && children}
     </AuthContext.Provider>
   );
