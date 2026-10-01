@@ -22,6 +22,7 @@ import {
 import type { Profile } from "@/types/panal";
 import { DISCIPLINES } from "@/lib/constants";
 import VerifiedBadge from "@/components/VerifiedBadge";
+import { calculateCompatibility } from "@/lib/compatibility";
 import { cn } from "@/lib/utils";
 
 // Custom authentic TikTok Icon
@@ -65,19 +66,16 @@ export const PanalMatchCard = ({
   const discLabel = discObj?.label ?? "Creador";
   const discEmoji = discObj?.emoji ?? "🐝";
 
-  // Mock social accounts stats if not set, for a rich visual experience
+  // Compatibility calculation
+  const compat = calculateCompatibility(me, profile);
+
+  // Social handles & formatting
   const rawIg = profile.instagram_url?.replace(/^https?:\/\/(www\.)?instagram\.com\//, "").replace(/\/$/, "");
   const rawTt = profile.tiktok_url?.replace(/^https?:\/\/(www\.)?tiktok\.com\/@?/, "").replace(/\/$/, "");
   const rawYt = profile.youtube_url?.replace(/^https?:\/\/(www\.)?youtube\.com\//, "").replace(/\/$/, "");
-  const rawTwitch = profile.twitch_url?.replace(/^https?:\/\/(www\.)?twitch\.tv\//, "").replace(/\/$/, "");
 
   const hasInstagram = !!profile.instagram_url || !!rawIg;
   const hasTikTok = !!profile.tiktok_url || !!rawTt;
-  const hasYouTube = !!profile.youtube_url || !!rawYt;
-  const hasTwitch = !!profile.twitch_url || !!rawTwitch;
-  const hasX = !!profile.x_url;
-  const hasLinkedIn = !!profile.linkedin_url;
-  const hasWeb = !!profile.website_url;
 
   const igHandle = rawIg || (profile.username ? `@${profile.username}` : "@creador");
   const ttHandle = rawTt || (profile.username ? `@${profile.username}` : "@creador");
@@ -115,55 +113,55 @@ export const PanalMatchCard = ({
       animate={{ scale: 1 - stackIndex * 0.04, y: stackIndex * 8 }}
       onDragEnd={handleDragEnd}
       exit={{ x: x.get() >= 0 ? 600 : -600, opacity: 0, transition: { duration: 0.25 } }}
-      className="absolute w-full max-w-sm h-[580px] rounded-3xl overflow-hidden shadow-2xl bg-card border border-amber-500/20 cursor-grab active:cursor-grabbing select-none touch-none flex flex-col justify-between"
+      className="absolute w-full max-w-[430px] sm:max-w-[470px] h-[530px] sm:h-[570px] max-h-[calc(100dvh-230px)] rounded-[28px] overflow-hidden shadow-2xl bg-card/95 border border-amber-500/25 cursor-grab active:cursor-grabbing select-none touch-none flex flex-col justify-between backdrop-blur-md"
     >
-      {/* Background Honeycomb Glow */}
+      {/* Background Honeycomb Warm Glow */}
       <div className="absolute inset-0 bg-gradient-to-b from-amber-500/10 via-background/90 to-background pointer-events-none" />
 
       {/* Swipe Overlay Badges */}
       <motion.div
         style={{ opacity: likeOp }}
-        className="absolute top-6 right-6 px-4 py-1.5 border-4 border-amber-400 text-amber-400 text-2xl font-black rounded-2xl rotate-12 bg-black/80 z-40 backdrop-blur-md shadow-xl"
+        className="absolute top-6 right-6 px-4 py-1.5 border-4 border-amber-400 text-amber-400 text-2xl font-black rounded-2xl rotate-12 bg-black/85 z-40 backdrop-blur-md shadow-2xl"
       >
         POLINIZAR 🐝
       </motion.div>
       <motion.div
         style={{ opacity: passOp }}
-        className="absolute top-6 left-6 px-4 py-1.5 border-4 border-destructive text-destructive text-2xl font-black rounded-2xl -rotate-12 bg-black/80 z-40 backdrop-blur-md shadow-xl"
+        className="absolute top-6 left-6 px-4 py-1.5 border-4 border-destructive text-destructive text-2xl font-black rounded-2xl -rotate-12 bg-black/85 z-40 backdrop-blur-md shadow-2xl"
       >
         PASAR ✕
       </motion.div>
 
       {/* Top Header Card Bar */}
-      <div className="relative z-20 p-3.5 pb-2 border-b border-border/50 bg-background/70 backdrop-blur-md flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2.5 min-w-0">
+      <div className="relative z-20 px-3.5 py-3 border-b border-border/50 bg-background/80 backdrop-blur-md flex items-center justify-between gap-2">
+        <div className="flex items-center gap-3 min-w-0">
           <div className="relative shrink-0">
             {profile.avatar_url ? (
               <img
                 src={profile.avatar_url}
                 alt={profile.display_name || "Creador"}
-                className="w-12 h-12 rounded-2xl object-cover ring-2 ring-amber-400/80 shadow-md"
+                className="w-11 h-11 rounded-2xl object-cover ring-2 ring-amber-400/80 shadow-md"
               />
             ) : (
-              <div className="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-2xl">
+              <div className="w-11 h-11 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-xl">
                 {discEmoji}
               </div>
             )}
-            <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center text-[10px] font-black shadow-xs">
+            <div className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-slate-950 flex items-center justify-center text-[9px] font-black shadow-xs">
               ⚡
             </div>
           </div>
 
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
-              <h3 className="font-extrabold text-base tracking-tight truncate text-foreground">
+              <h3 className="font-extrabold text-sm sm:text-base tracking-tight truncate text-foreground">
                 {profile.display_name}
               </h3>
               {profile.is_verified && <VerifiedBadge size={15} />}
             </div>
-            <p className="text-xs text-muted-foreground flex items-center gap-1 truncate">
+            <p className="text-[11px] text-muted-foreground flex items-center gap-1 truncate">
               <span>{discEmoji}</span>
-              <span className="font-medium truncate">{discLabel}</span>
+              <span className="font-semibold text-foreground/80 truncate">{discLabel}</span>
               {(profile.city || profile.country) && (
                 <>
                   <span>•</span>
@@ -174,7 +172,7 @@ export const PanalMatchCard = ({
           </div>
         </div>
 
-        {/* Tab Switcher: Bento vs Full Visual */}
+        {/* Tab Switcher: Bento vs Visual */}
         <div className="flex items-center bg-muted/70 p-1 rounded-xl shrink-0 border border-border/40">
           <button
             type="button"
@@ -183,9 +181,9 @@ export const PanalMatchCard = ({
               setActiveTab("bento");
             }}
             className={cn(
-              "px-2 py-1 text-[11px] font-bold rounded-lg transition-all flex items-center gap-1",
+              "px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all flex items-center gap-1",
               activeTab === "bento"
-                ? "bg-amber-400 text-slate-950 shadow-xs"
+                ? "bg-amber-400 text-slate-950 shadow-xs font-black"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
@@ -199,9 +197,9 @@ export const PanalMatchCard = ({
               setActiveTab("visual");
             }}
             className={cn(
-              "px-2 py-1 text-[11px] font-bold rounded-lg transition-all flex items-center gap-1",
+              "px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all flex items-center gap-1",
               activeTab === "visual"
-                ? "bg-amber-400 text-slate-950 shadow-xs"
+                ? "bg-amber-400 text-slate-950 shadow-xs font-black"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
@@ -212,7 +210,7 @@ export const PanalMatchCard = ({
       </div>
 
       {/* Main Content Area */}
-      <div className="relative z-10 flex-1 overflow-y-auto px-3.5 py-2.5 space-y-2.5 scrollbar-none">
+      <div className="relative z-10 flex-1 overflow-y-auto px-3.5 py-3 space-y-3 scrollbar-none">
         {activeTab === "visual" ? (
           /* Visual Photo View */
           <div className="relative w-full h-full min-h-[360px] rounded-2xl overflow-hidden border border-border/60 bg-muted">
@@ -225,52 +223,54 @@ export const PanalMatchCard = ({
             ) : (
               <div className="w-full h-full flex flex-col items-center justify-center text-muted-foreground p-6 text-center">
                 <span className="text-6xl mb-2">{discEmoji}</span>
-                <p className="text-sm font-semibold">{profile.display_name}</p>
-                <p className="text-xs text-muted-foreground mt-1">{profile.bio}</p>
+                <p className="text-base font-bold">{profile.display_name}</p>
+                <p className="text-xs text-muted-foreground mt-1 max-w-xs">{profile.bio}</p>
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 text-white">
-              <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-500/90 text-slate-950 inline-block mb-1.5 shadow-sm">
+              <span className="text-xs font-black px-2.5 py-1 rounded-full bg-amber-400 text-slate-950 inline-block mb-1.5 shadow-sm">
                 {totalReach}
               </span>
-              <p className="text-xs opacity-90 line-clamp-3">{profile.bio || "Creador en el Panal listo para colaborar y potenciar alcance."}</p>
+              <p className="text-xs opacity-90 line-clamp-3 leading-relaxed">
+                {profile.bio || "Creador en el Panal listo para colaborar y potenciar alcance."}
+              </p>
             </div>
           </div>
         ) : (
           /* THE FLAGSHIP FEATURE: Social Bento Recap Matrix */
           <>
-            {/* Global Reach & Pitch Banner */}
-            <div className="p-2.5 rounded-2xl bg-gradient-to-r from-amber-500/15 via-yellow-500/10 to-amber-600/15 border border-amber-500/30 flex items-center justify-between gap-2 shadow-xs">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-amber-400 text-slate-950 flex items-center justify-center font-black text-sm shrink-0 shadow-sm">
+            {/* Global Reach & High Synergy Banner */}
+            <div className="p-2.5 sm:p-3 rounded-2xl bg-gradient-to-r from-amber-500/15 via-yellow-500/10 to-amber-600/15 border border-amber-500/30 flex items-center justify-between gap-2 shadow-xs">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-400 to-amber-500 text-slate-950 flex items-center justify-center font-black text-sm shrink-0 shadow-sm">
                   ⚡
                 </div>
                 <div>
                   <div className="text-[10px] font-black uppercase tracking-wider text-amber-500">
-                    Potencial de Alcance
+                    Alcance Multiplataforma
                   </div>
-                  <div className="text-xs font-extrabold text-foreground">{totalReach}</div>
+                  <div className="text-xs sm:text-sm font-black text-foreground tracking-tight">{totalReach}</div>
                 </div>
               </div>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-background/80 border border-amber-500/40 text-amber-500 shrink-0">
-                Sinergia Alta 🐝
+              <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-background/80 border border-amber-500/40 text-amber-400 shrink-0 shadow-xs">
+                {compat?.badgeLabel || "Sinergia Alta 🐝"}
               </span>
             </div>
 
-            {/* Social Bento Widgets Grid */}
-            <div className="grid grid-cols-2 gap-2">
+            {/* Social Bento Widgets Grid (Spacious 2x2 Layout) */}
+            <div className="grid grid-cols-2 gap-2.5">
               {/* Instagram Bento Tile */}
-              <div className="p-2.5 rounded-2xl bg-gradient-to-br from-pink-500/10 via-purple-500/5 to-transparent border border-pink-500/25 flex flex-col justify-between hover:border-pink-500/50 transition-all">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white flex items-center justify-center">
+              <div className="p-3 rounded-2xl bg-gradient-to-br from-pink-500/10 via-purple-500/5 to-card border border-pink-500/25 flex flex-col justify-between hover:border-pink-500/50 transition-all shadow-xs">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white flex items-center justify-center shadow-xs">
                     <Instagram className="w-3.5 h-3.5" />
                   </div>
-                  <span className="text-[9px] font-bold text-muted-foreground uppercase">Reels & Post</span>
+                  <span className="text-[9px] font-bold text-pink-400/90 uppercase tracking-wider">Reels & Post</span>
                 </div>
                 <div>
-                  <div className="text-xs font-black truncate text-foreground">{igHandle}</div>
-                  <div className="text-[11px] font-extrabold text-pink-500 flex items-center gap-1 mt-0.5">
+                  <div className="text-xs font-bold truncate text-foreground">{igHandle}</div>
+                  <div className="text-[11px] font-black text-pink-500 flex items-center gap-1 mt-0.5">
                     <TrendingUp className="w-3 h-3" />
                     <span>{profile.social_stats?.instagram_followers || "78.4K seg."}</span>
                   </div>
@@ -278,35 +278,35 @@ export const PanalMatchCard = ({
               </div>
 
               {/* TikTok Bento Tile */}
-              <div className="p-2.5 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-black/10 to-transparent border border-cyan-500/25 flex flex-col justify-between hover:border-cyan-500/50 transition-all">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="w-6 h-6 rounded-lg bg-black text-white border border-white/20 flex items-center justify-center">
-                    <TikTokIcon className="w-3.5 h-3.5" />
+              <div className="p-3 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-teal-500/5 to-card border border-cyan-500/25 flex flex-col justify-between hover:border-cyan-500/50 transition-all shadow-xs">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="w-6 h-6 rounded-lg bg-black text-white border border-cyan-500/30 flex items-center justify-center shadow-xs">
+                    <TikTokIcon className="w-3.5 h-3.5 text-cyan-400" />
                   </div>
-                  <span className="text-[9px] font-bold text-muted-foreground uppercase">Viral Video</span>
+                  <span className="text-[9px] font-bold text-cyan-400/90 uppercase tracking-wider">Viral Video</span>
                 </div>
                 <div>
-                  <div className="text-xs font-black truncate text-foreground">{ttHandle}</div>
-                  <div className="text-[11px] font-extrabold text-cyan-500 flex items-center gap-1 mt-0.5">
+                  <div className="text-xs font-bold truncate text-foreground">{ttHandle}</div>
+                  <div className="text-[11px] font-black text-cyan-400 flex items-center gap-1 mt-0.5">
                     <TrendingUp className="w-3 h-3" />
                     <span>{profile.social_stats?.tiktok_followers || "142K seg."}</span>
                   </div>
                 </div>
               </div>
 
-              {/* YouTube / Twitch / Media Bento Tile */}
-              <div className="p-2.5 rounded-2xl bg-gradient-to-br from-red-500/10 via-red-500/5 to-transparent border border-red-500/25 flex flex-col justify-between hover:border-red-500/50 transition-all">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="w-6 h-6 rounded-lg bg-red-600 text-white flex items-center justify-center">
+              {/* YouTube / Twitch Bento Tile */}
+              <div className="p-3 rounded-2xl bg-gradient-to-br from-red-500/10 via-orange-500/5 to-card border border-red-500/25 flex flex-col justify-between hover:border-red-500/50 transition-all shadow-xs">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="w-6 h-6 rounded-lg bg-red-600 text-white flex items-center justify-center shadow-xs">
                     <Youtube className="w-3.5 h-3.5" />
                   </div>
-                  <span className="text-[9px] font-bold text-muted-foreground uppercase">Long-form</span>
+                  <span className="text-[9px] font-bold text-red-400/90 uppercase tracking-wider">Long-form</span>
                 </div>
                 <div>
-                  <div className="text-xs font-black truncate text-foreground">
-                    {profile.youtube_url ? "Canal Oficial" : "YouTube Hub"}
+                  <div className="text-xs font-bold truncate text-foreground">
+                    {profile.youtube_url ? "Canal Oficial" : "Video Hub"}
                   </div>
-                  <div className="text-[11px] font-extrabold text-red-500 flex items-center gap-1 mt-0.5">
+                  <div className="text-[11px] font-black text-red-500 flex items-center gap-1 mt-0.5">
                     <Users className="w-3 h-3" />
                     <span>{profile.social_stats?.youtube_subs || "25.6K subs"}</span>
                   </div>
@@ -314,63 +314,63 @@ export const PanalMatchCard = ({
               </div>
 
               {/* Professional Network / LinkedIn / X / Web */}
-              <div className="p-2.5 rounded-2xl bg-gradient-to-br from-amber-500/10 via-amber-500/5 to-transparent border border-amber-500/25 flex flex-col justify-between hover:border-amber-500/50 transition-all">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="w-6 h-6 rounded-lg bg-amber-500 text-slate-950 flex items-center justify-center font-bold">
+              <div className="p-3 rounded-2xl bg-gradient-to-br from-amber-500/10 via-yellow-500/5 to-card border border-amber-500/25 flex flex-col justify-between hover:border-amber-500/50 transition-all shadow-xs">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="w-6 h-6 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center font-bold shadow-xs">
                     <XIcon className="w-3.5 h-3.5" />
                   </div>
-                  <span className="text-[9px] font-bold text-muted-foreground uppercase">Networking</span>
+                  <span className="text-[9px] font-bold text-amber-500/90 uppercase tracking-wider">Networking</span>
                 </div>
                 <div>
-                  <div className="text-xs font-black truncate text-foreground">
-                    {profile.x_url ? "@x_account" : "Autoridad & PR"}
+                  <div className="text-xs font-bold truncate text-foreground">
+                    {profile.x_url ? "@x_account" : "Match Directo"}
                   </div>
-                  <div className="text-[11px] font-extrabold text-amber-500 flex items-center gap-1 mt-0.5">
+                  <div className="text-[11px] font-black text-amber-500 flex items-center gap-1 mt-0.5">
                     <CheckCircle2 className="w-3 h-3" />
-                    <span>Activo diario</span>
+                    <span>Activo en Panal</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Collaboration Potential Matrix ("Qué Aporta / Qué Busca") */}
-            <div className="p-3 rounded-2xl bg-muted/40 border border-border/60 space-y-2">
+            <div className="p-3 rounded-2xl bg-muted/40 border border-border/60 space-y-2.5 backdrop-blur-xs">
               <div>
-                <div className="text-[10px] font-black uppercase tracking-wider text-muted-foreground mb-1.5 flex items-center gap-1">
-                  <Briefcase className="w-3 h-3 text-amber-500" />
+                <div className="text-[10px] font-black uppercase tracking-wider text-amber-500 mb-1.5 flex items-center gap-1.5">
+                  <Briefcase className="w-3 h-3 text-amber-400" />
                   <span>Lo que aporta al Panal</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {offerings.map((off, idx) => (
                     <span
                       key={idx}
-                      className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-background border border-amber-500/30 text-foreground flex items-center gap-1"
+                      className="text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 flex items-center gap-1 shadow-xs"
                     >
-                      <span className="text-amber-500">✓</span> {off}
+                      <span className="text-amber-400">✓</span> {off}
                     </span>
                   ))}
                 </div>
               </div>
 
               <div>
-                <div className="text-[10px] font-black uppercase tracking-wider text-muted-foreground mb-1.5 flex items-center gap-1">
-                  <Zap className="w-3 h-3 text-amber-500" />
-                  <span>Busca co-crear / explotar</span>
+                <div className="text-[10px] font-black uppercase tracking-wider text-cyan-400 mb-1.5 flex items-center gap-1.5">
+                  <Zap className="w-3 h-3 text-cyan-400" />
+                  <span>Busca co-crear / colaborar</span>
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {seeking.map((sek, idx) => (
                     <span
                       key={idx}
-                      className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/40 text-amber-500"
+                      className="text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 flex items-center gap-1 shadow-xs"
                     >
-                      🤝 {sek}
+                      <span>🤝</span> {sek}
                     </span>
                   ))}
                 </div>
               </div>
 
               {profile.bio && (
-                <p className="text-xs text-muted-foreground line-clamp-2 pt-1 border-t border-border/40 italic">
+                <p className="text-xs text-muted-foreground/90 line-clamp-2 pt-2 border-t border-border/40 italic leading-relaxed">
                   "{profile.bio}"
                 </p>
               )}
@@ -379,14 +379,14 @@ export const PanalMatchCard = ({
         )}
       </div>
 
-      {/* Bottom Sticky Collaboration Bar */}
-      <div className="relative z-20 px-4 py-2.5 bg-background/80 backdrop-blur-md border-t border-border/50 flex items-center justify-between gap-2 text-xs">
-        <span className="text-[11px] font-bold text-muted-foreground flex items-center gap-1.5">
+      {/* Bottom Sleek Micro Collaboration Bar */}
+      <div className="relative z-20 px-4 py-2 bg-background/85 backdrop-blur-md border-t border-border/40 flex items-center justify-between text-xs">
+        <span className="text-[11px] font-semibold text-muted-foreground flex items-center gap-1.5">
           <span>Desliza derecha para</span>
-          <span className="text-amber-500 font-extrabold">Polinizar</span>
+          <span className="text-amber-400 font-black">Polinizar 🐝</span>
         </span>
-        <div className="flex items-center gap-1 text-[10px] font-extrabold text-amber-500 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-full">
-          <span>🐝 Match Directo</span>
+        <div className="flex items-center gap-1 text-[10px] font-black text-amber-400 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-full">
+          <span>Match Directo</span>
         </div>
       </div>
     </motion.div>

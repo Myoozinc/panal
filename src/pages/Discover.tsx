@@ -305,21 +305,82 @@ const Discover = () => {
     }));
 
   return (
-    <div className="px-4 pt-4 pb-2">
-      <header className="flex items-center justify-between gap-2 mb-4">
-        <Logo size="sm" />
+    <div className="px-3 sm:px-4 pt-2 sm:pt-3 pb-2 max-w-2xl mx-auto">
+      {/* Sleek Top Controls Toolbar (Mode Switcher + Search & Filters) */}
+      <div className="flex items-center justify-between gap-2 mb-3 max-w-[430px] sm:max-w-[470px] mx-auto">
+        {/* Mode Switcher: Creadores vs Squads */}
+        <div className="flex items-center p-1 bg-card/85 backdrop-blur-md border border-border/50 rounded-full shadow-xs">
+          <button
+            type="button"
+            onClick={() => setDiscoverMode("artists")}
+            className={cn(
+              "py-1 px-3 rounded-full text-xs font-bold transition-all flex items-center gap-1.5",
+              discoverMode === "artists"
+                ? "bg-amber-400 text-slate-950 shadow-xs font-black"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            <span>🐝 Creadores</span>
+            <span
+              className={cn(
+                "text-[10px] px-1.5 py-0.2 rounded-full font-black",
+                discoverMode === "artists"
+                  ? "bg-slate-950/20 text-slate-950"
+                  : "bg-primary/20 text-primary"
+              )}
+            >
+              {activeCards.length}
+            </span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setDiscoverMode("squads")}
+            className={cn(
+              "py-1 px-3 rounded-full text-xs font-bold transition-all flex items-center gap-1.5",
+              discoverMode === "squads"
+                ? "bg-amber-400 text-slate-950 shadow-xs font-black"
+                : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            <Rocket className="w-3.5 h-3.5" />
+            <span>Squads</span>
+            {activeSquadCards.length > 0 && (
+              <span
+                className={cn(
+                  "text-[10px] px-1.5 py-0.2 rounded-full font-black",
+                  discoverMode === "squads"
+                    ? "bg-slate-950/20 text-slate-950"
+                    : "bg-primary/20 text-primary"
+                )}
+              >
+                {activeSquadCards.length}
+              </span>
+            )}
+          </button>
+        </div>
+
+        {/* Search & Filter Actions */}
         <div className="flex items-center gap-1.5">
           <Link to="/search" aria-label="Buscar artistas">
-            <Button variant="outline" size="icon" className="rounded-full w-9 h-9">
-              <Search className="w-4 h-4" />
+            <Button
+              variant="outline"
+              size="icon"
+              className="rounded-full w-8 h-8 border-border/60 hover:border-amber-400/60 bg-card/85 backdrop-blur-md"
+            >
+              <Search className="w-3.5 h-3.5" />
             </Button>
           </Link>
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="outline" size="sm" className="rounded-full gap-1.5" aria-label="Filtros">
-                <SlidersHorizontal className="w-4 h-4" />
+              <Button
+                variant="outline"
+                size="sm"
+                className="rounded-full h-8 px-2.5 gap-1.5 border-border/60 hover:border-amber-400/60 bg-card/85 backdrop-blur-md"
+                aria-label="Filtros"
+              >
+                <SlidersHorizontal className="w-3.5 h-3.5" />
                 {activeFilters > 0 && (
-                  <span className="text-[10px] font-bold bg-primary text-primary-foreground rounded-full px-1.5">
+                  <span className="text-[10px] font-black bg-amber-400 text-slate-950 rounded-full px-1.5">
                     {activeFilters}
                   </span>
                 )}
@@ -327,7 +388,7 @@ const Discover = () => {
             </SheetTrigger>
             <SheetContent side="bottom" className="rounded-t-3xl max-h-[80vh] overflow-y-auto">
               <SheetHeader>
-                <SheetTitle>Filtros</SheetTitle>
+                <SheetTitle>Filtros de búsqueda</SheetTitle>
               </SheetHeader>
               <div className="mt-4 space-y-5">
                 <div>
@@ -357,7 +418,7 @@ const Discover = () => {
                     id="city-filter"
                     value={filters.city}
                     onChange={(e) => setFilters((f) => ({ ...f, city: e.target.value }))}
-                    placeholder="Ej. Madrid"
+                    placeholder="Ej. Madrid, Barcelona..."
                     className="mt-2 rounded-xl"
                   />
                 </div>
@@ -396,57 +457,11 @@ const Discover = () => {
               </div>
             </SheetContent>
           </Sheet>
-          <span className="text-xs font-semibold text-muted-foreground bg-card/60 px-3 py-1.5 rounded-full border border-border/40">
-            {activeCards.length}
-          </span>
         </div>
-      </header>
-
-      {/* Mode Switcher: Creadores vs Proyectos & Squads */}
-      <div className="flex items-center justify-center p-1 bg-muted/60 border border-border/40 rounded-full max-w-xs mx-auto mb-2 shadow-xs">
-        <button
-          type="button"
-          onClick={() => setDiscoverMode("artists")}
-          className={cn(
-            "flex-1 py-1.5 px-3 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5",
-            discoverMode === "artists"
-              ? "bg-amber-400 text-slate-950 shadow-xs font-extrabold"
-              : "text-muted-foreground hover:text-foreground"
-          )}
-        >
-          <span>🐝 Creadores</span>
-          <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-950/15 text-slate-950 font-black">
-            {activeCards.length}
-          </span>
-        </button>
-        <button
-          type="button"
-          onClick={() => setDiscoverMode("squads")}
-          className={cn(
-            "flex-1 py-1.5 px-3 rounded-full text-xs font-bold transition-all flex items-center justify-center gap-1.5",
-            discoverMode === "squads"
-              ? "bg-amber-400 text-slate-950 shadow-xs font-extrabold"
-              : "text-muted-foreground hover:text-foreground"
-          )}
-        >
-          <Rocket className="w-3.5 h-3.5" />
-          <span>Squads</span>
-          {activeSquadCards.length > 0 && (
-            <span
-              className={cn(
-                "text-[10px] px-1.5 py-0.2 rounded-full",
-                discoverMode === "squads"
-                  ? "bg-white/20 text-white font-black"
-                  : "bg-primary/20 text-primary"
-              )}
-            >
-              {activeSquadCards.length}
-            </span>
-          )}
-        </button>
       </div>
 
-      <div className="relative h-[calc(100vh-240px)] flex items-center justify-center">
+      {/* Swipeable Card Deck Container */}
+      <div className="relative w-full max-w-[430px] sm:max-w-[470px] mx-auto h-[530px] sm:h-[570px] max-h-[calc(100dvh-230px)] flex items-center justify-center">
         {discoverMode === "artists" ? (
           isLoading ? (
             <SwipeSkeleton />
@@ -456,8 +471,8 @@ const Discover = () => {
               title="Por ahora todo visto"
               description={
                 activeFilters > 0
-                  ? "Prueba a quitar algunos filtros para ver más artistas."
-                  : "Vuelve pronto. Más artistas se unen cada día."
+                  ? "Prueba a quitar algunos filtros para ver más creadores."
+                  : "Vuelve pronto. Más creadores se unen cada día."
               }
               actionLabel={activeFilters > 0 ? undefined : "Explorar el feed"}
               actionTo={activeFilters > 0 ? undefined : "/feed"}
@@ -508,17 +523,9 @@ const Discover = () => {
         )}
       </div>
 
-      <div className="flex justify-center items-center gap-5 mt-4">
-        <Button
-          size="icon"
-          variant="ghost"
-          disabled={!lastSwipeId || undoSwipe.isPending}
-          onClick={() => undoSwipe.mutate()}
-          aria-label="Deshacer último swipe"
-          className="w-11 h-11 rounded-full border border-border/60 disabled:opacity-30"
-        >
-          <Undo2 className="w-5 h-5 text-muted-foreground" />
-        </Button>
+      {/* Swipe Action Controls: Pass, Undo, Like */}
+      <div className="flex justify-center items-center gap-6 mt-3 sm:mt-4">
+        {/* Pass Button (Swipe Left) */}
         <Button
           size="icon"
           variant="outline"
@@ -535,10 +542,24 @@ const Discover = () => {
             }
           }}
           aria-label="Pasar"
-          className="w-16 h-16 rounded-full border-2 border-destructive/40 hover:bg-destructive/10 hover:scale-110 transition-all shadow-lg"
+          className="w-14 h-14 rounded-full border-2 border-destructive/40 text-destructive bg-card/80 backdrop-blur hover:bg-destructive hover:text-white hover:scale-105 active:scale-95 transition-all shadow-md"
         >
-          <X className="!w-7 !h-7 text-destructive" />
+          <X className="!w-7 !h-7" />
         </Button>
+
+        {/* Undo Button (Center) */}
+        <Button
+          size="icon"
+          variant="ghost"
+          disabled={!lastSwipeId || undoSwipe.isPending}
+          onClick={() => undoSwipe.mutate()}
+          aria-label="Deshacer último swipe"
+          className="w-11 h-11 rounded-full border border-border/60 bg-card/60 backdrop-blur disabled:opacity-30 hover:scale-105 active:scale-95 transition-all"
+        >
+          <Undo2 className="w-5 h-5 text-muted-foreground" />
+        </Button>
+
+        {/* Like / Polinizar Button (Swipe Right) */}
         <Button
           size="icon"
           disabled={
@@ -554,7 +575,7 @@ const Discover = () => {
             }
           }}
           aria-label="Polinizar / Me gusta"
-          className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-500 text-slate-950 hover:scale-110 transition-all shadow-xl shadow-amber-500/40"
+          className="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-500 text-slate-950 hover:scale-110 active:scale-95 transition-all shadow-xl shadow-amber-500/40 ring-4 ring-amber-400/20"
         >
           <Heart className="!w-7 !h-7 fill-current" />
         </Button>
@@ -857,7 +878,7 @@ const SquadSwipeCard = ({
       animate={{ scale: 1 - stackIndex * 0.04, y: stackIndex * 8 }}
       onDragEnd={handleDragEnd}
       exit={{ x: x.get() >= 0 ? 600 : -600, opacity: 0, transition: { duration: 0.25 } }}
-      className="absolute w-full max-w-sm aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-b from-card via-card to-background border border-border/50 cursor-grab active:cursor-grabbing select-none touch-none flex flex-col justify-between p-5"
+      className="absolute w-full max-w-[430px] sm:max-w-[470px] h-[530px] sm:h-[570px] max-h-[calc(100dvh-230px)] rounded-[28px] overflow-hidden shadow-2xl bg-gradient-to-b from-card via-card to-background border border-border/50 cursor-grab active:cursor-grabbing select-none touch-none flex flex-col justify-between p-5"
     >
       <motion.div style={{ opacity: likeOp }} className="absolute top-8 right-6 px-4 py-2 border-4 border-primary text-primary text-2xl font-black rounded-xl rotate-12 bg-background/90 z-30 shadow-xl">
         CONECTAR

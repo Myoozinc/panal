@@ -30,7 +30,7 @@ export const CardSkeleton = ({ cards = 3 }: { cards?: number }) => (
 );
 
 export const SwipeSkeleton = () => (
-  <div className="w-full max-w-sm aspect-[3/4] rounded-3xl overflow-hidden" aria-hidden>
-    <Skeleton className="w-full h-full rounded-3xl" />
+  <div className="w-full max-w-[430px] sm:max-w-[470px] h-[530px] sm:h-[570px] max-h-[calc(100dvh-230px)] rounded-[28px] overflow-hidden" aria-hidden>
+    <Skeleton className="w-full h-full rounded-[28px]" />
   </div>
 );
