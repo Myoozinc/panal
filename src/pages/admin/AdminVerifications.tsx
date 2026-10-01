@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Check, X, ExternalLink, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { db, isFirebaseConfigured } from "@/lib/firebase";
+import { collection, doc, getDocs, setDoc, query, where, orderBy } from "firebase/firestore";
+import { isUuid } from "@/services/panalService";
 import { useAuth } from "@/components/AuthProvider";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -21,20 +24,59 @@ const AdminVerifications = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["admin-verifications", status],
     queryFn: async () => {
-      const { data: reqs, error } = await supabase
-        .from("verification_requests")
-        .select("*")
-        .eq("status", status)
-        .order("created_at", { ascending: false });
-      if (error) throw error;
-      const ids = (reqs ?? []).map((r) => r.user_id);
-      if (!ids.length) return [];
-      const { data: profiles } = await supabase
-        .from("profiles")
-        .select("id, display_name, username, avatar_url, is_verified")
-        .in("id", ids);
-      const byId = new Map((profiles ?? []).map((p) => [p.id, p]));
-      return (reqs ?? []).map((r) => ({ ...r, profile: byId.get(r.user_id) }));
+      // 1. Try Firestore if configured
+      if (isFirebaseConfigured) {
+        try {
+          const q = query(
+            collection(db, "verification_requests"),
+            where("status", "==", status)
+          );
+          const snap = await getDocs(q);
+          if (!snap.empty) {
+            return snap.docs.map((d) => {
+              const dData = d.data();
+              return {
+                id: d.id,
+                ...dData,
+                profile: {
+                  id: dData.user_id,
+                  display_name: dData.display_name,
+                  username: dData.username,
+                  avatar_url: dData.avatar_url,
+                  is_verified: dData.status === "approved",
+                },
+              };
+            });
+          }
+        } catch (fbErr) {
+          console.warn("Firestore verifications read warning:", fbErr);
+        }
+      }
+
+      // 2. Try Supabase fallback
+      try {
+        const { data: reqs, error } = await supabase
+          .from("verification_requests")
+          .select("*")
+          .eq("status", status)
+          .order("created_at", { ascending: false });
+        if (!error && reqs) {
+          const ids = reqs.map((r) => r.user_id).filter((id) => isUuid(id));
+          if (!ids.length) return reqs;
+          const { data: profiles } = await supabase
+            .from("profiles")
+            .select("id, display_name, username, avatar_url, is_verified")
+            .in("id", ids);
+          const byId = new Map((profiles ?? []).map((p) => [p.id, p]));
+          return reqs.map((r) => ({ ...r, profile: byId.get(r.user_id) }));
+        }
+      } catch (sbErr) {
+        console.warn("Supabase verifications read warning:", sbErr);
+      }
+
+      // 3. Fallback to localStorage
+      const localReqs = JSON.parse(localStorage.getItem("panal_verification_requests") || "[]");
+      return localReqs.filter((r: any) => r.status === status);
     },
   });
 
@@ -42,24 +84,52 @@ const AdminVerifications = () => {
     if (!user) return;
     setActingId(id);
     try {
-      const { error } = await supabase
-        .from("verification_requests")
-        .update({
-          status: approve ? "approved" : "rejected",
-          reviewed_by: user.id,
-          reviewed_at: new Date().toISOString(),
-        })
-        .eq("id", id);
-      if (error) throw error;
+      if (isFirebaseConfigured) {
+        try {
+          await setDoc(
+            doc(db, "verification_requests", id),
+            {
+              status: approve ? "approved" : "rejected",
+              reviewed_by: user.id,
+              reviewed_at: new Date().toISOString(),
+            },
+            { merge: true }
+          );
 
-      if (approve) {
-        const { error: pe } = await supabase
-          .from("profiles")
-          .update({ is_verified: true, verified_at: new Date().toISOString() })
-          .eq("id", userId);
-        if (pe) throw pe;
+          if (approve) {
+            await setDoc(
+              doc(db, "profiles", userId),
+              {
+                is_verified: true,
+                verified_at: new Date().toISOString(),
+              },
+              { merge: true }
+            );
+          }
+        } catch (err) {
+          console.warn("Firestore decide error:", err);
+        }
       }
-      toast({ title: approve ? "Verificación aprobada" : "Verificación rechazada" });
+
+      if (isUuid(id) && isUuid(userId)) {
+        await supabase
+          .from("verification_requests")
+          .update({
+            status: approve ? "approved" : "rejected",
+            reviewed_by: user.id,
+            reviewed_at: new Date().toISOString(),
+          })
+          .eq("id", id);
+
+        if (approve) {
+          await supabase
+            .from("profiles")
+            .update({ is_verified: true, verified_at: new Date().toISOString() })
+            .eq("id", userId);
+        }
+      }
+
+      toast({ title: approve ? "Verificación aprobada 🐝" : "Verificación rechazada" });
       qc.invalidateQueries({ queryKey: ["admin-verifications"] });
       qc.invalidateQueries({ queryKey: ["admin-count"] });
     } catch (e: any) {

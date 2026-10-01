@@ -7,6 +7,7 @@ import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { compressImage, fileToDataUrl } from "@/lib/image";
 import { ImageCropperModal } from "@/components/ImageCropperModal";
 import { supabase } from "@/integrations/supabase/client";
+import { PanalService, isUuid } from "@/services/panalService";
 import { useAuth } from "@/components/AuthProvider";
 import { useProfile } from "@/hooks/useProfile";
 import { useToast } from "@/hooks/use-toast";
@@ -171,19 +172,21 @@ const MyProfile = () => {
       }
 
       setAvatarUrl(finalUrl);
-      await supabase.from("profiles").update({ avatar_url: finalUrl }).eq("id", authUser.id);
-      qc.invalidateQueries({ queryKey: ["profile"] });
-      toast({ title: "Foto de perfil actualizada con éxito" });
+      if (user?.id) {
+        await PanalService.saveProfile(user.id, { avatar_url: finalUrl });
+        qc.invalidateQueries({ queryKey: ["profile"] });
+      }
+      toast({ title: "Foto de perfil actualizada con éxito 🐝" });
     } catch (err: any) {
       console.error("Error avatar:", err);
       try {
         const fallbackUrl = await fileToDataUrl(croppedFile);
         setAvatarUrl(fallbackUrl);
         if (user?.id) {
-          await supabase.from("profiles").update({ avatar_url: fallbackUrl }).eq("id", user.id);
+          await PanalService.saveProfile(user.id, { avatar_url: fallbackUrl });
           qc.invalidateQueries({ queryKey: ["profile"] });
         }
-        toast({ title: "Foto guardada con éxito" });
+        toast({ title: "Foto guardada con éxito 🐝" });
       } catch {
         toast({ variant: "destructive", title: "Error subiendo foto", description: err.message || "Intenta con otra imagen." });
       }
@@ -221,7 +224,7 @@ const MyProfile = () => {
     }
     setSaving(true);
     try {
-      if (parsed.data.username !== profile.username) {
+      if (parsed.data.username !== profile.username && isUuid(user.id)) {
         const { data: existing } = await supabase
           .from("profiles")
           .select("id")
@@ -234,17 +237,15 @@ const MyProfile = () => {
           return;
         }
       }
-      const { error } = await supabase
-        .from("profiles")
-        .update({
-          ...parsed.data,
-          avatar_url: avatarUrl,
-          notification_prefs: form.notification_prefs,
-        })
-        .eq("id", user.id);
-      if (error) throw error;
+
+      await PanalService.saveProfile(user.id, {
+        ...parsed.data,
+        avatar_url: avatarUrl,
+        notification_prefs: form.notification_prefs,
+      });
+
       qc.invalidateQueries({ queryKey: ["profile", user.id] });
-      toast({ title: "Perfil actualizado" });
+      toast({ title: "Perfil actualizado 🐝" });
     } catch (err: any) {
       toast({ variant: "destructive", title: "Error", description: err.message });
     } finally {
@@ -255,16 +256,23 @@ const MyProfile = () => {
   const requestVerification = async () => {
     if (!user) return;
     setRequestingVerif(true);
-    const { error } = await supabase.from("verification_requests").insert({
-      user_id: user.id,
-      status: "pending",
-    });
-    setRequestingVerif(false);
-    if (error) {
+    try {
+      await PanalService.requestVerification(user.id, {
+        display_name: form?.display_name || profile.display_name,
+        username: form?.username || profile.username,
+        avatar_url: avatarUrl,
+        discipline: form?.discipline || profile.discipline,
+      });
+      qc.invalidateQueries({ queryKey: ["profile", user.id] });
+      toast({
+        title: "Solicitud enviada 🐝",
+        description: "El equipo de Panal revisará tu perfil de creador pronto.",
+      });
+    } catch (error: any) {
       toast({ variant: "destructive", title: "Error", description: error.message });
-      return;
+    } finally {
+      setRequestingVerif(false);
     }
-    toast({ title: "Solicitud enviada", description: "El equipo revisará tu perfil pronto." });
   };
 
   return (

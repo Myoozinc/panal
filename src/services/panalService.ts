@@ -13,6 +13,11 @@ import {
   limit,
 } from "firebase/firestore";
 
+import { supabase } from "@/integrations/supabase/client";
+
+export const isUuid = (str?: string) =>
+  Boolean(str && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(str));
+
 const STORAGE_SWIPES_KEY = "panal_local_swipes";
 const STORAGE_MATCHES_KEY = "panal_local_matches";
 
@@ -204,5 +209,83 @@ export class PanalService {
   static saveCollabPlan(plan: CollabPlan): void {
     const key = `panal_plan_${plan.conversationId}`;
     localStorage.setItem(key, JSON.stringify({ ...plan, updatedAt: new Date().toISOString() }));
+  }
+
+  /**
+   * Envía una solicitud de verificación compatible con Firebase UID y Supabase UUID.
+   */
+  static async requestVerification(userId: string, profileData?: Partial<Profile>): Promise<void> {
+    if (isFirebaseConfigured) {
+      try {
+        const reqDoc = doc(collection(db, "verification_requests"));
+        await setDoc(reqDoc, {
+          id: reqDoc.id,
+          user_id: userId,
+          display_name: profileData?.display_name || "Creador",
+          username: profileData?.username || "creador",
+          avatar_url: profileData?.avatar_url || "/logo.png",
+          discipline: profileData?.discipline || "other",
+          status: "pending",
+          created_at: new Date().toISOString(),
+        });
+        await setDoc(
+          doc(db, "profiles", userId),
+          {
+            verification_requested: true,
+            updated_at: new Date().toISOString(),
+          },
+          { merge: true }
+        );
+        return;
+      } catch (err) {
+        console.warn("Firestore verification request error:", err);
+      }
+    }
+
+    if (isUuid(userId)) {
+      const { error } = await supabase.from("verification_requests").insert({
+        user_id: userId,
+        status: "pending",
+      });
+      if (error) throw error;
+    } else {
+      const localReqs = JSON.parse(localStorage.getItem("panal_verification_requests") || "[]");
+      localReqs.push({
+        id: `verif_${Date.now()}`,
+        user_id: userId,
+        status: "pending",
+        created_at: new Date().toISOString(),
+      });
+      localStorage.setItem("panal_verification_requests", JSON.stringify(localReqs));
+    }
+  }
+
+  /**
+   * Guarda o actualiza los datos del perfil compatible con Firebase y Supabase.
+   */
+  static async saveProfile(userId: string, data: Partial<Profile>): Promise<void> {
+    if (isFirebaseConfigured) {
+      try {
+        await setDoc(
+          doc(db, "profiles", userId),
+          {
+            ...data,
+            id: userId,
+            updated_at: new Date().toISOString(),
+          },
+          { merge: true }
+        );
+        return;
+      } catch (err) {
+        console.warn("Firestore profile save error:", err);
+      }
+    }
+
+    if (isUuid(userId)) {
+      const { error } = await supabase.from("profiles").update(data).eq("id", userId);
+      if (error) throw error;
+    } else {
+      localStorage.setItem(`panal_profile_${userId}`, JSON.stringify(data));
+    }
   }
 }
