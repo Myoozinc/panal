@@ -12,7 +12,7 @@ import { AuthNavigationButtons } from "@/components/auth/AuthNavigationButtons";
 import { Loader2 } from "lucide-react";
 
 const Auth = () => {
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, loginAsDemo } = useAuth();
   const navigate = useNavigate();
   const authState = useAuthState();
   const {
@@ -127,7 +127,7 @@ const Auth = () => {
               <Button
                 type="button"
                 variant="ghost"
-                onClick={handleDemoSignIn}
+                onClick={loginAsDemo}
                 className="w-full text-xs text-amber-500 hover:text-amber-400 hover:bg-amber-500/10 border border-dashed border-amber-500/30 rounded-xl py-2.5 h-auto transition-all"
               >
                 ⚡ Probar prototipo como Creador Demo (Acceso directo)

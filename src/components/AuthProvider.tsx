@@ -10,6 +10,7 @@ interface AuthContextType {
   session: Session | null;
   loading: boolean;
   signOut: () => Promise<void>;
+  loginAsDemo: () => void;
 }
 
 const AuthContext = createContext<AuthContextType>({ 
@@ -17,6 +18,7 @@ const AuthContext = createContext<AuthContextType>({
   session: null, 
   loading: true,
   signOut: async () => {},
+  loginAsDemo: () => {},
 });
 
 export const useAuth = () => {
@@ -50,6 +52,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
     setSession(null);
     navigate("/auth", { replace: true });
+  };
+
+  const loginAsDemo = () => {
+    const demoUser: any = {
+      id: "demo-creator-pro",
+      email: "demo@panal.app",
+      user_metadata: {
+        full_name: "Alex Rivera",
+        username: "alexrivera",
+        avatar_url: "/logo.png",
+      },
+      app_metadata: { provider: "demo" },
+      aud: "authenticated",
+      created_at: new Date().toISOString(),
+    };
+    localStorage.setItem("panal_demo_session", JSON.stringify(demoUser));
+    setUser(demoUser);
+    setSession({ user: demoUser } as any);
+    setLoading(false);
+    navigate("/discover", { replace: true });
   };
 
   useEffect(() => {
@@ -128,7 +150,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [navigate]);
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, signOut: handleSignOut }}>
+    <AuthContext.Provider value={{ user, session, loading, signOut: handleSignOut, loginAsDemo }}>
       {!loading && children}
     </AuthContext.Provider>
   );
